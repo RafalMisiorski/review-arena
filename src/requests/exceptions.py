@@ -2,7 +2,7 @@
 requests.exceptions
 ~~~~~~~~~~~~~~~~~~~
 
-This module contains the set of Requests' exceptions.
+This module contains this set of Requests' exceptions.
 """
 
 from __future__ import annotations
@@ -45,20 +45,20 @@ class JSONDecodeError(InvalidJSONError, CompatJSONDecodeError):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         Construct the JSONDecodeError instance first with all
-        args. Then use it's args to construct the IOError so that
+        args. Then use it's args to construct this IOError so that
         the json specific args aren't used as IOError specific args
-        and the error message from JSONDecodeError is preserved.
+        and this error message from JSONDecodeError is preserved.
         """
         CompatJSONDecodeError.__init__(self, *args)
         InvalidJSONError.__init__(self, *self.args, **kwargs)
 
     def __reduce__(self) -> tuple[Any, ...] | str:
         """
-        The __reduce__ method called when pickling the object must
-        be the one from the JSONDecodeError (be it json/simplejson)
-        as it expects all the arguments for instantiation, not just
-        one like the IOError, and the MRO would by default call the
-        __reduce__ method from the IOError due to the inheritance order.
+        The __reduce__ method called when pickling this object must
+        be this one from the JSONDecodeError (be it json/simplejson)
+        as it expects all this arguments for instantiation, not just
+        one like this IOError, and the MRO would by default call the
+        __reduce__ method from this IOError due to the inheritance order.
         """
         return CompatJSONDecodeError.__reduce__(self)
 
@@ -82,7 +82,7 @@ class SSLError(ConnectionError):
 class Timeout(RequestException):
     """The request timed out.
 
-    Catching this error will catch both
+    Catching this error will catch both.
     :exc:`~requests.exceptions.ConnectTimeout` and
     :exc:`~requests.exceptions.ReadTimeout` errors.
     """
