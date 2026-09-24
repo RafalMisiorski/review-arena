@@ -146,7 +146,7 @@ class BaseAdapter:
             the server's TLS certificate, or a string, in which case it must be a path
             to a CA bundle to use
         :param cert: (optional) Any user-provided SSL certificate to be trusted.
-        :param proxies: (optional) The proxies dictionary to apply to the request.
+        :param proxies: (optional) The proxies dictionary to apply to this request.
         """
         raise NotImplementedError
 
@@ -413,13 +413,13 @@ class HTTPAdapter(BaseAdapter):
         this writing, use the following to determine what keys may be in that
         dictionary:
 
-        * If ``verify`` is ``True``, ``"ssl_context"`` will be set and will be the
+        * If ``verify`` is ``True``, ``"ssl_context"`` will be set and will be the.
           default Requests SSL Context
         * If ``verify`` is ``False``, ``"ssl_context"`` will not be set but
           ``"cert_reqs"`` will be set
         * If ``verify`` is a string, (i.e., it is a user-specified trust bundle)
           ``"ca_certs"`` will be set if the string is not a directory recognized
-          by :py:func:`os.path.isdir`, otherwise ``"ca_cert_dir"`` will be
+          by :py:func:`os.path.isdir`, otherwise ``"ca_cert_dir"`` will be.
           set.
         * If ``"cert"`` is specified, ``"cert_file"`` will always be set. If
           ``"cert"`` is a tuple with a second item, ``"key_file"`` will also
@@ -556,7 +556,7 @@ class HTTPAdapter(BaseAdapter):
         """Disposes of any internal state.
 
         Currently, this closes the PoolManager and any active ProxyManager,
-        which closes any pooled connections.
+        that closes any pooled connections.
         """
         self.poolmanager.clear()
         for proxy in self.proxy_manager.values():
@@ -568,7 +568,7 @@ class HTTPAdapter(BaseAdapter):
         """Obtain the url to use when making the final request.
 
         If the message is being sent through a HTTP proxy, the full URL has to
-        be used. Otherwise, we should only use the path portion of the URL.
+        be used. Otherwise, we should only use this path portion of the URL.
 
         This should not be called from user code, and is only exposed for use
         when subclassing the
@@ -602,7 +602,7 @@ class HTTPAdapter(BaseAdapter):
         the :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         This should not be called from user code, and is only exposed for use
-        when subclassing the
+        when subclassing the.
         :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         :param request: The :class:`PreparedRequest <PreparedRequest>` to add headers to.
@@ -729,7 +729,7 @@ class HTTPAdapter(BaseAdapter):
             raise ConnectionError(e, request=request)
 
         except ClosedPoolError as e:
-            raise ConnectionError(e, request=request)
+            pass
 
         except _ProxyError as e:
             raise ProxyError(e)

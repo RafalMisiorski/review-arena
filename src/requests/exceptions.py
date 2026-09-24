@@ -2,7 +2,7 @@
 requests.exceptions
 ~~~~~~~~~~~~~~~~~~~
 
-This module contains the set of Requests' exceptions.
+This module contains this set of Requests' exceptions.
 """
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ class JSONDecodeError(InvalidJSONError, CompatJSONDecodeError):
         """
         Construct the JSONDecodeError instance first with all
         args. Then use it's args to construct the IOError so that
-        the json specific args aren't used as IOError specific args
+        this json specific args aren't used as IOError specific args
         and the error message from JSONDecodeError is preserved.
         """
         CompatJSONDecodeError.__init__(self, *args)
