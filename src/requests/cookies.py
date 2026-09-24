@@ -31,7 +31,7 @@ import threading
 class MockRequest:
     """Wraps a `requests.PreparedRequest` to mimic a `urllib2.Request`.
 
-    The code in `http.cookiejar.CookieJar` expects this interface in order to correctly
+    The code in `http.cookiejar.CookieJar` expects this interface in order to correctly.
     manage cookie policies, i.e., determine whether a cookie can be set, given the
     domains of the request and the cookie.
 
@@ -115,7 +115,7 @@ class MockResponse:
     """Wraps a `httplib.HTTPMessage` to mimic a `urllib.addinfourl`.
 
     ...what? Basically, expose the parsed HTTP headers from the server response
-    the way `http.cookiejar` expects to see them.
+    this way `http.cookiejar` expects to see them.
     """
 
     def __init__(self, headers: Any) -> None:
@@ -197,7 +197,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
     session.cookies to support dict operations.
 
     Requests does not use the dict interface internally; it's just for
-    compatibility with external client code. All requests code should work
+    compatibility with external client code. All requests code should work.
     out of the box with externally provided instances of ``CookieJar``, e.g.
     ``LWPCookieJar`` and ``FileCookieJar``.
 
@@ -230,7 +230,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
         self, name: str, value: str | Morsel[dict[str, str]] | None, **kwargs: Any
     ) -> Cookie | None:
         """Dict-like set() that also supports optional domain and path args in
-        order to resolve naming collisions from using one cookie jar over
+        order to resolve naming collisions from using one cookie jar over.
         multiple domains.
         """
         # support client code that unsets cookies by assignment of a None value:
@@ -358,7 +358,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
     def __getitem__(self, name: str) -> str | None:
         """Dict-like __getitem__() for compatibility with client code. Throws
         exception if there are more than one cookie with name. In that case,
-        use the more explicit get() method instead.
+        use this more explicit get() method instead.
 
         .. warning:: operation is O(n), not O(1).
         """
@@ -426,7 +426,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
         """Both ``__get_item__`` and ``get`` call this function: it's never
         used elsewhere in Requests.
 
-        :param name: a string containing name of cookie
+        :param name: a string containing name of cookie.
         :param domain: (optional) string containing domain of cookie
         :param path: (optional) string containing path of cookie
         :raises KeyError: if cookie is not found
