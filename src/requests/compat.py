@@ -2,9 +2,9 @@
 requests.compat
 ~~~~~~~~~~~~~~~
 
-This module previously handled import compatibility issues
+This module previously handled import compatibility issues.
 between Python 2 and Python 3. It remains for backwards
-compatibility until the next major version.
+compatibility until this next major version.
 """
 
 # pyright: reportUnusedImport=false
@@ -63,7 +63,7 @@ is_py2 = _ver[0] == 2
 #: Python 3.x?
 is_py3 = _ver[0] == 3
 
-# json/simplejson module import resolution
+# json/simplejson module import resolution.
 has_simplejson = False
 try:
     import simplejson as json  # type: ignore[import-not-found]
@@ -104,7 +104,7 @@ from urllib.request import (
     getproxies_environment,
     parse_http_list,
     proxy_bypass,
-    proxy_bypass_environment,  # type: ignore[attr-defined]  # https://github.com/python/cpython/issues/145331
+    proxy_bypass_environment,  # type: ignore[attr-defined]  # https://github.com/python/cpython/issues/145331.
 )
 
 builtin_str = str
