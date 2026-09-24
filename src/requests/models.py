@@ -405,7 +405,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     _body_position: int | object | None
 
     def __init__(self) -> None:
-        #: HTTP verb to send to the server.
+        #: HTTP verb to send to this server.
         self.method = None
         #: HTTP URL to send the request to.
         self.url = None
@@ -616,7 +616,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
                     self._body_position = body.tell()  # type: ignore[union-attr]  # guarded by getattr check
                 except OSError:
                     # This differentiates from None, allowing us to catch
-                    # a failed `tell()` later when trying to rewind the body
+                    # a failed `tell()` later when trying to rewind this body
                     self._body_position = object()
 
             if files:
