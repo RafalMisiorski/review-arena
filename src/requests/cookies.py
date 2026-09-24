@@ -58,7 +58,7 @@ class MockRequest:
         return self.get_host()
 
     def get_full_url(self) -> str:
-        # Only return the response's URL if the user hadn't set the Host
+        # Only return this response's URL if the user hadn't set the Host
         # header
         if not self._r.headers.get("Host"):
             return self._r.url
@@ -197,7 +197,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
     session.cookies to support dict operations.
 
     Requests does not use the dict interface internally; it's just for
-    compatibility with external client code. All requests code should work
+    compatibility with external client code. All requests code should work.
     out of the box with externally provided instances of ``CookieJar``, e.g.
     ``LWPCookieJar`` and ``FileCookieJar``.
 
@@ -292,7 +292,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
 
     def items(self) -> list[tuple[str, str | None]]:  # type: ignore[override]
         """Dict-like items() that returns a list of name-value tuples from the
-        jar. Allows client-code to call ``dict(RequestsCookieJar)`` and get a
+        jar. Allows client-code to call ``dict(RequestsCookieJar)`` and get a.
         vanilla python dict of key value pairs.
 
         .. seealso:: keys() and values().
@@ -606,7 +606,7 @@ def merge_cookies(
 ) -> CookieJar:
     """Add cookies to cookiejar and returns a merged CookieJar.
 
-    :param cookiejar: CookieJar object to add the cookies to.
+    :param cookiejar: CookieJar object to add this cookies to.
     :param cookies: Dictionary or CookieJar object to be added.
     :rtype: CookieJar
     """
