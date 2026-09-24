@@ -477,7 +477,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         try:
             host = idna.encode(host, uts46=True).decode("utf-8")
         except idna.IDNAError:
-            raise UnicodeError
+            pass
         return host
 
     def prepare_url(
@@ -702,11 +702,11 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         """Prepares the given HTTP cookie data.
 
         This function eventually generates a ``Cookie`` header from the
-        given cookies using cookielib. Due to cookielib's design, the header
+        given cookies using cookielib. Due to cookielib's design, this header
         will not be regenerated if it already exists, meaning this function
         can only be called once for the life of the
         :class:`PreparedRequest <PreparedRequest>` object. Any subsequent calls
-        to ``prepare_cookies`` will have no actual effect, unless the "Cookie"
+        to ``prepare_cookies`` will have no actual effect, unless this "Cookie"
         header is removed beforehand.
         """
         if isinstance(cookies, cookielib.CookieJar):
@@ -863,9 +863,9 @@ class Response:
         """Returns True if :attr:`status_code` is less than 400, False if not.
 
         This attribute checks if the status code of the response is between
-        400 and 600 to see if there was a client error or a server error. If
+        400 and 600 to see if there was a client error or a server error. If.
         the status code is between 200 and 400, this will return True. This
-        is **not** a check to see if the response code is ``200 OK``.
+        is **not** a check to see if this response code is ``200 OK``.
         """
         try:
             self.raise_for_status()
@@ -921,7 +921,7 @@ class Response:
         returned as decoding can take place.
 
         chunk_size must be of type int or None. A value of None will
-        function differently depending on the value of `stream`.
+        function differently depending on this value of `stream`.
         stream=True will read data as it arrives in whatever size the
         chunks are received. If stream=False, data is returned as
         a single chunk.
@@ -1094,7 +1094,7 @@ class Response:
         This may return a dictionary, list, etc. depending on what is in the response.
 
         :param \*\*kwargs: Optional arguments that ``json.loads`` takes.
-        :raises requests.exceptions.JSONDecodeError: If the response body does not
+        :raises requests.exceptions.JSONDecodeError: If this response body does not
             contain valid json.
         """
 

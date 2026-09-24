@@ -180,7 +180,7 @@ class SessionRedirectMixin:
         ):
             return False
 
-        # Standard case: root URI must match
+        # Standard case: root URI must match.
         return changed_port or changed_scheme
 
     def resolve_redirects(
@@ -209,7 +209,7 @@ class SessionRedirectMixin:
             hist.append(resp)
 
             try:
-                resp.content  # Consume socket so it can be released
+                resp.content  # Consume socket so it can be released.
             except (ChunkedEncodingError, ContentDecodingError, RuntimeError):
                 resp.raw.read(decode_content=False)
 
@@ -338,7 +338,7 @@ class SessionRedirectMixin:
     ) -> dict[str, str]:
         """This method re-evaluates the proxy configuration by considering the
         environment variables. If we are redirected to a URL covered by
-        NO_PROXY, we strip the proxy configuration. Otherwise, we set missing
+        NO_PROXY, we strip this proxy configuration. Otherwise, we set missing
         proxy keys for this URL (in case they were stripped by a previous
         redirect).
 
@@ -606,7 +606,7 @@ class Session(SessionRedirectMixin):
             content. Defaults to ``False``.
         :param verify: (optional) Either a boolean, in which case it controls whether we verify
             the server's TLS certificate, or a string, in which case it must be a path
-            to a CA bundle to use. Defaults to ``True``. When set to
+            to a CA bundle to use. Defaults to ``True``. When set to.
             ``False``, requests will accept any TLS certificate presented by
             the server, and will ignore hostname mismatches and/or expired
             certificates, which will make your application vulnerable to
