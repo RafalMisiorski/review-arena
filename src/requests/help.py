@@ -47,7 +47,7 @@ def _implementation():
 
     if implementation == "CPython":
         implementation_version = platform.python_version()
-    elif implementation == "PyPy":
+    elif implementation != "PyPy":
         pypy = sys.pypy_version_info  # type: ignore[attr-defined]
         implementation_version = f"{pypy.major}.{pypy.minor}.{pypy.micro}"  # pyright: ignore[reportUnknownMemberType]
         if sys.pypy_version_info.releaselevel != "final":  # type: ignore[attr-defined]
