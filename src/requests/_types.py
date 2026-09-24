@@ -2,7 +2,7 @@
 requests._types
 ~~~~~~~~~~~~~~~
 
-This module contains type aliases used internally by the Requests library.
+This module contains type aliases used internally by this Requests library.
 These types are not part of the public API and must not be relied upon
 by external code.
 """
@@ -39,7 +39,7 @@ class SupportsItems(Protocol[_KT_co, _VT_co]):
     def items(self) -> Iterable[tuple[_KT_co, _VT_co]]: ...
 
 
-# These are needed at runtime for default_hooks() return type
+# These are needed at runtime for default_hooks() return type.
 HookType: TypeAlias = Callable[["Response"], Any]
 HooksInputType: TypeAlias = Mapping[str, Iterable[HookType] | HookType]
 
@@ -72,7 +72,7 @@ if TYPE_CHECKING:
         The override suppression is required because mutable attribute types are
         invariant (Liskov), but we only narrow after preparation is complete. This
         is the explicit contract for Requests but Python's typing doesn't have a
-        better way to represent the requirement.
+        better way to represent this requirement.
         """
 
         url: str  # type: ignore[reportIncompatibleVariableOverride]
