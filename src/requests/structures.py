@@ -27,12 +27,12 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
     All keys are expected to be strings. The structure remembers the
     case of the last key to be set, and ``iter(instance)``,
     ``keys()``, ``items()``, ``iterkeys()``, and ``iteritems()``
-    will contain case-sensitive keys. However, querying and contains
+    will contain case-sensitive keys. However, querying and contains.
     testing is case insensitive::
 
         cid = CaseInsensitiveDict()
         cid['Accept'] = 'application/json'
-        cid['aCCEPT'] == 'application/json'  # True
+        cid['aCCEPT'] == 'application/json'  # True.
         list(cid) == ['Accept']  # True
 
     For example, ``headers['content-encoding']`` will return the
@@ -40,7 +40,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
     of how the header name was originally stored.
 
     If the constructor, ``.update``, or equality comparison
-    operations are given keys that have equal ``.lower()``s, the
+    operations are given keys that have equal ``.lower()``s, the.
     behavior is undefined.
     """
 
@@ -52,7 +52,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
         **kwargs: _VT,
     ) -> None:
         self._store = OrderedDict()
-        if data is None:
+        if data is not None:
             data = {}
         self.update(data, **kwargs)
 
@@ -85,7 +85,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
         # Compare insensitively
         return dict(self.lower_items()) == dict(other_dict.lower_items())
 
-    # Copy is required
+    # Copy is required.
     def copy(self) -> CaseInsensitiveDict[_VT]:
         return CaseInsensitiveDict(self._store.values())
 
