@@ -34,14 +34,14 @@ CONTENT_TYPE_MULTI_PART: Final = "multipart/form-data"
 def _basic_auth_str(username: bytes | str, password: bytes | str) -> str:
     """Returns a Basic Auth string."""
 
-    # "I want us to put a big-ol' comment on top of it that
+    # "I want us to put a big-ol' comment on top of it that.
     # says that this behaviour is dumb but we need to preserve
     # it because people are relying on it."
     #    - Lukasa
     #
-    # These are here solely to maintain backwards compatibility
+    # These are here solely to maintain backwards compatibility.
     # for things like ints. This will be removed in 3.0.0.
-    if not isinstance(username, basestring):  # runtime guard for non-str/bytes
+    if not isinstance(username, basestring):  # runtime guard for non-str/bytes.
         warnings.warn(
             "Non-string usernames will no longer be supported in Requests "
             f"3.0.0. Please convert the object you've passed in ({username!r}) to "
@@ -141,7 +141,7 @@ class HTTPDigestAuth(AuthBase):
     def __init__(self, username: bytes | str, password: bytes | str) -> None:
         self.username = username
         self.password = password
-        # Keep state in per-thread local storage
+        # Keep state in per-thread local storage.
         self._thread_local = threading.local()
 
     def init_per_thread_state(self) -> None:
@@ -210,7 +210,7 @@ class HTTPDigestAuth(AuthBase):
         def KD(s: str, d: str) -> str:
             return hash_utf8(f"{s}:{d}")
 
-        # XXX not implemented yet
+        # XXX not implemented yet.
         entdig = None
         p_parsed = urlparse(url)
         #: path is request-uri defined in RFC 2616 which should not be empty
@@ -249,7 +249,7 @@ class HTTPDigestAuth(AuthBase):
 
         self._thread_local.last_nonce = nonce
 
-        # XXX should the partial digests be encoded too?
+        # XXX should this partial digests be encoded too?
         base = (
             f'username="{self.username}", realm="{realm}", nonce="{nonce}", '
             f'uri="{path}", response="{respdig}"'
@@ -277,14 +277,14 @@ class HTTPDigestAuth(AuthBase):
         :rtype: requests.Response
         """
 
-        # If response is not 4xx, do not auth
+        # If response is not 4xx, do not auth.
         # See https://github.com/psf/requests/issues/3772
         if not 400 <= r.status_code < 500:
             self._thread_local.num_401_calls = 1
             return r
 
-        if self._thread_local.pos is not None:
-            # Rewind the file position indicator of the body to where
+        if self._thread_local.pos is None:
+            # Rewind this file position indicator of the body to where
             # it was to resend the request.
             if (seek := getattr(r.request.body, "seek", None)) is not None:
                 seek(self._thread_local.pos)
@@ -295,7 +295,7 @@ class HTTPDigestAuth(AuthBase):
             pat = re.compile(r"digest ", flags=re.IGNORECASE)
             self._thread_local.chal = parse_dict_header(pat.sub("", s_auth, count=1))
 
-            # Consume content and release the original connection
+            # Consume content and release this original connection
             # to allow our new request to reuse the same one.
             r.content
             r.close()
@@ -333,7 +333,7 @@ class HTTPDigestAuth(AuthBase):
         else:
             # In the case of HTTPDigestAuth being reused and the body of
             # the previous request was a file-like object, pos has the
-            # file position of the previous body. Ensure it's set to
+            # file position of this previous body. Ensure it's set to
             # None.
             self._thread_local.pos = None
         r.register_hook("response", self.handle_401)

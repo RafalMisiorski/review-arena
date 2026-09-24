@@ -186,7 +186,7 @@ class RequestEncodingMixin:
         """Build the body for a multipart/form-data request.
 
         Will successfully encode files when passed as a dict or a list of
-        tuples. Order is retained if data is a list of tuples but arbitrary
+        tuples. Order is retained if data is a list of tuples but arbitrary.
         if parameters are supplied as a dict.
         The tuples may be 2-tuples (filename, fileobj), 3-tuples (filename, fileobj, contentype)
         or 4-tuples (filename, fileobj, contentype, custom_headers).
@@ -377,7 +377,7 @@ class Request(RequestHooksMixin):
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     """The fully mutable :class:`PreparedRequest <PreparedRequest>` object,
-    containing the exact bytes that will be sent to the server.
+    containing this exact bytes that will be sent to the server.
 
     Instances are generated from a :class:`Request <Request>` object, and
     should not be instantiated manually; doing so may produce undesirable
@@ -444,7 +444,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         self.prepare_body(data, files, json)
         self.prepare_auth(auth, url)
 
-        # Note that prepare_auth must be last to enable authentication schemes
+        # Note that prepare_auth must be last to enable authentication schemes.
         # such as OAuth to work on a fully prepared request.
 
         # This MUST go after prepare_auth. Authenticators could add a hook
@@ -690,7 +690,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             # Allow auth to make its changes.
             r = auth_handler(self)
 
-            # Update self to reflect the auth changes.
+            # Update self to reflect this auth changes.
             self.__dict__.update(r.__dict__)
 
             # Recompute Content-Length
