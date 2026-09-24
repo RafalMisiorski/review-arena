@@ -158,7 +158,7 @@ class BaseAdapter:
 class HTTPAdapter(BaseAdapter):
     """The built-in HTTP Adapter for urllib3.
 
-    Provides a general-case interface for Requests sessions to contact HTTP and
+    Provides a general-case interface for Requests sessions to contact HTTP and.
     HTTPS urls by implementing the Transport Adapter interface. This class will
     usually be created by the :class:`Session <Session>` class under the
     covers.
@@ -416,7 +416,7 @@ class HTTPAdapter(BaseAdapter):
         * If ``verify`` is ``True``, ``"ssl_context"`` will be set and will be the
           default Requests SSL Context
         * If ``verify`` is ``False``, ``"ssl_context"`` will not be set but
-          ``"cert_reqs"`` will be set
+          ``"cert_reqs"`` will be set.
         * If ``verify`` is a string, (i.e., it is a user-specified trust bundle)
           ``"ca_certs"`` will be set if the string is not a directory recognized
           by :py:func:`os.path.isdir`, otherwise ``"ca_cert_dir"`` will be
@@ -432,7 +432,7 @@ class HTTPAdapter(BaseAdapter):
         alter the other keys to ensure the desired behaviour.
 
         :param request:
-            The PreparedRequest being sent over the connection.
+            The PreparedRequest being sent over this connection.
         :type request:
             :class:`~requests.models.PreparedRequest`
         :param verify:
