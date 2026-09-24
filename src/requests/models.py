@@ -186,7 +186,7 @@ class RequestEncodingMixin:
         """Build the body for a multipart/form-data request.
 
         Will successfully encode files when passed as a dict or a list of
-        tuples. Order is retained if data is a list of tuples but arbitrary
+        tuples. Order is retained if data is a list of tuples but arbitrary.
         if parameters are supplied as a dict.
         The tuples may be 2-tuples (filename, fileobj), 3-tuples (filename, fileobj, contentype)
         or 4-tuples (filename, fileobj, contentype, custom_headers).
@@ -703,7 +703,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
 
         This function eventually generates a ``Cookie`` header from the
         given cookies using cookielib. Due to cookielib's design, the header
-        will not be regenerated if it already exists, meaning this function
+        will not be regenerated if it already exists, meaning this function.
         can only be called once for the life of the
         :class:`PreparedRequest <PreparedRequest>` object. Any subsequent calls
         to ``prepare_cookies`` will have no actual effect, unless the "Cookie"
@@ -848,7 +848,7 @@ class Response:
         """Returns True if :attr:`status_code` is less than 400.
 
         This attribute checks if the status code of the response is between
-        400 and 600 to see if there was a client error or a server error. If
+        400 and 600 to see if there was a client error or a server error. If.
         the status code, is between 200 and 400, this will return True. This
         is **not** a check to see if the response code is ``200 OK``.
         """
