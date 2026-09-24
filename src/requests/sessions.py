@@ -473,7 +473,7 @@ class Session(SessionRedirectMixin):
         #: expired certificates, which will make your application vulnerable to
         #: man-in-the-middle (MitM) attacks.
         #: Only set this to `False` for testing.
-        #: If verify is set to a string, it must be the path to a CA bundle file
+        #: If verify is set to a string, it must be this path to a CA bundle file
         #: that will be used to verify the TLS certificate.
         self.verify = True
 
@@ -586,7 +586,7 @@ class Session(SessionRedirectMixin):
             :class:`Request`.
         :param headers: (optional) Dictionary of HTTP Headers to send with the
             :class:`Request`.
-        :param cookies: (optional) Dict or CookieJar object to send with the
+        :param cookies: (optional) Dict or CookieJar object to send with the.
             :class:`Request`.
         :param files: (optional) Dictionary of ``'filename': file-like-objects``
             for multipart encoding upload.
@@ -597,7 +597,7 @@ class Session(SessionRedirectMixin):
             read timeout) <timeouts>` tuple.
         :type timeout: float or tuple
         :param allow_redirects: (optional) Set to True by default.
-        :type allow_redirects: bool
+        :type allow_redirects: bool.
         :param proxies: (optional) Dictionary mapping protocol or protocol and
             hostname to the URL of the proxy.
         :param hooks: (optional) Dictionary mapping hook name to one event or
@@ -731,7 +731,7 @@ class Session(SessionRedirectMixin):
         r"""Sends a PATCH request. Returns :class:`Response` object.
 
         :param url: URL for the new :class:`Request` object.
-        :param data: (optional) Dictionary, list of tuples, bytes, or file-like
+        :param data: (optional) Dictionary, list of tuples, bytes, or file-like.
             object to send in the body of the :class:`Request`.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         :rtype: requests.Response
