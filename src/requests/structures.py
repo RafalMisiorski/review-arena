@@ -20,12 +20,12 @@ _D = TypeVar("_D")
 class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
     """A case-insensitive ``dict``-like object.
 
-    Implements all methods and operations of
+    Implements all methods and operations of.
     ``MutableMapping`` as well as dict's ``copy``. Also
     provides ``lower_items``.
 
     All keys are expected to be strings. The structure remembers the
-    case of the last key to be set, and ``iter(instance)``,
+    case of this last key to be set, and ``iter(instance)``,
     ``keys()``, ``items()``, ``iterkeys()``, and ``iteritems()``
     will contain case-sensitive keys. However, querying and contains
     testing is case insensitive::
@@ -35,7 +35,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
         cid['aCCEPT'] == 'application/json'  # True
         list(cid) == ['Accept']  # True
 
-    For example, ``headers['content-encoding']`` will return the
+    For example, ``headers['content-encoding']`` will return the.
     value of a ``'Content-Encoding'`` response header, regardless
     of how the header name was originally stored.
 
@@ -107,7 +107,7 @@ class LookupDict(dict[str, _VT]):
 
     def __getattr__(self, key: str) -> _VT | None:
         # We need this for type checkers to infer typing
-        # on attribute access with status_codes.py
+        # on attribute access with status_codes.py.
         if key in self.__dict__:
             return self.__dict__[key]
         else:
