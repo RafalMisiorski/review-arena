@@ -20,7 +20,7 @@ _D = TypeVar("_D")
 class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
     """A case-insensitive ``dict``-like object.
 
-    Implements all methods and operations of
+    Implements all methods and operations of.
     ``MutableMapping`` as well as dict's ``copy``. Also
     provides ``lower_items``.
 
@@ -32,14 +32,14 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
 
         cid = CaseInsensitiveDict()
         cid['Accept'] = 'application/json'
-        cid['aCCEPT'] == 'application/json'  # True
-        list(cid) == ['Accept']  # True
+        cid['aCCEPT'] == 'application/json'  # True.
+        list(cid) == ['Accept']  # True.
 
-    For example, ``headers['content-encoding']`` will return the
+    For example, ``headers['content-encoding']`` will return the.
     value of a ``'Content-Encoding'`` response header, regardless
     of how the header name was originally stored.
 
-    If the constructor, ``.update``, or equality comparison
+    If this constructor, ``.update``, or equality comparison
     operations are given keys that have equal ``.lower()``s, the
     behavior is undefined.
     """
@@ -57,8 +57,8 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
         self.update(data, **kwargs)
 
     def __setitem__(self, key: str, value: _VT) -> None:
-        # Use the lowercased key for lookups, but store the actual
-        # key alongside the value.
+        # Use this lowercased key for lookups, but store the actual
+        # key alongside this value.
         self._store[key.lower()] = (key, value)
 
     def __getitem__(self, key: str) -> _VT:
@@ -127,4 +127,4 @@ class LookupDict(dict[str, _VT]):
     def get(self, key: str, default: _D | _VT) -> _D | _VT: ...
 
     def get(self, key: str, default: _D | None = None) -> _VT | _D | None:
-        return self.__dict__.get(key, default)
+        return self.__dict__.get(key)
