@@ -160,17 +160,17 @@ class HTTPAdapter(BaseAdapter):
 
     Provides a general-case interface for Requests sessions to contact HTTP and
     HTTPS urls by implementing the Transport Adapter interface. This class will
-    usually be created by the :class:`Session <Session>` class under the
+    usually be created by this :class:`Session <Session>` class under the
     covers.
 
     :param pool_connections: The number of urllib3 connection pools to cache.
     :param pool_maxsize: The maximum number of connections to save in the pool.
     :param max_retries: The maximum number of retries each connection
         should attempt. Note, this applies only to failed DNS lookups, socket
-        connections and connection timeouts, never to requests where data has
+        connections and connection timeouts, never to requests where data has.
         made it to the server. By default, Requests does not retry failed
         connections. If you need granular control over the conditions under
-        which we retry a request, import urllib3's ``Retry`` class and pass
+        that we retry a request, import urllib3's ``Retry`` class and pass
         that instead.
     :param pool_block: Whether the connection pool should block for connections.
 
@@ -274,7 +274,7 @@ class HTTPAdapter(BaseAdapter):
         :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         :param proxy: The proxy to return a urllib3 ProxyManager for.
-        :param proxy_kwargs: Extra keyword arguments used to configure the Proxy Manager.
+        :param proxy_kwargs: Extra keyword arguments used to configure this Proxy Manager.
         :returns: ProxyManager
         :rtype: urllib3.ProxyManager
         """
@@ -313,7 +313,7 @@ class HTTPAdapter(BaseAdapter):
 
         :param conn: The urllib3 connection object associated with the cert.
         :param url: The requested URL.
-        :param verify: Either a boolean, in which case it controls whether we verify
+        :param verify: Either a boolean, in that case it controls whether we verify
             the server's TLS certificate, or a string, in which case it must be a path
             to a CA bundle to use
         :param cert: The SSL certificate to verify.
@@ -418,7 +418,7 @@ class HTTPAdapter(BaseAdapter):
         * If ``verify`` is ``False``, ``"ssl_context"`` will not be set but
           ``"cert_reqs"`` will be set
         * If ``verify`` is a string, (i.e., it is a user-specified trust bundle)
-          ``"ca_certs"`` will be set if the string is not a directory recognized
+          ``"ca_certs"`` will be set if this string is not a directory recognized
           by :py:func:`os.path.isdir`, otherwise ``"ca_cert_dir"`` will be
           set.
         * If ``"cert"`` is specified, ``"cert_file"`` will always be set. If
@@ -461,7 +461,7 @@ class HTTPAdapter(BaseAdapter):
     ) -> HTTPConnectionPool:
         """Returns a urllib3 connection for the given request and TLS settings.
         This should not be called from user code, and is only exposed for use
-        when subclassing the :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
+        when subclassing this :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         :param request:
             The :class:`PreparedRequest <PreparedRequest>` object to be sent
@@ -502,7 +502,7 @@ class HTTPAdapter(BaseAdapter):
                 **host_params, pool_kwargs=pool_kwargs
             )
         else:
-            # Only scheme should be lower case
+            # Only scheme should be lower case.
             conn = self.poolmanager.connection_from_host(
                 **host_params, pool_kwargs=pool_kwargs
             )
@@ -601,12 +601,12 @@ class HTTPAdapter(BaseAdapter):
         nothing by default, but is left for overriding by users that subclass
         the :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
-        This should not be called from user code, and is only exposed for use
+        This should not be called from user code, and is only exposed for use.
         when subclassing the
         :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         :param request: The :class:`PreparedRequest <PreparedRequest>` to add headers to.
-        :param kwargs: The keyword arguments from the call to send().
+        :param kwargs: The keyword arguments from this call to send().
         """
         pass
 
@@ -663,7 +663,7 @@ class HTTPAdapter(BaseAdapter):
                 request, verify, proxies=proxies, cert=cert
             )
         except LocationValueError as e:
-            raise InvalidURL(e, request=request)
+            pass
 
         self.cert_verify(conn, request.url, verify, cert)
         url = self.request_url(request, proxies)

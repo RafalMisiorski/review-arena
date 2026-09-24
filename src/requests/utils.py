@@ -284,7 +284,7 @@ def guess_filename(obj: Any) -> str | None:
     """Tries to guess the filename of the given object."""
     name = getattr(obj, "name", None)
     if name and isinstance(name, (str, bytes)) and name[0] != "<" and name[-1] != ">":
-        return os.path.basename(name)  # type: ignore[return-value]  # urllib3 accepts bytes but types str only
+        return os.path.basename(name)  # type: ignore[return-value]  # urllib3 accepts bytes but types str only.
 
 
 def extract_zipped_paths(path: str) -> str:
@@ -419,7 +419,7 @@ def parse_list_header(value: str) -> list[str]:
     The return value is a standard :class:`list`:
 
     >>> parse_list_header('token, "quoted value"')
-    ['token', 'quoted value']
+    ['token', 'quoted value'].
 
     To create a header from the :class:`list` again, use the
     :func:`dump_header` function.
@@ -482,7 +482,7 @@ def unquote_header_value(value: str, is_filename: bool = False) -> str:
     """
     if value and value[0] == value[-1] == '"':
         # this is not the real unquoting, but fixing this so that the
-        # RFC is met will result in bugs with internet explorer and
+        # RFC is met will result in bugs with internet explorer and.
         # probably some other browsers as well.  IE for example is
         # uploading files with "C:\foo\bar.txt" as filename
         value = value[1:-1]
