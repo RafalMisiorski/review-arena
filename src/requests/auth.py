@@ -2,7 +2,7 @@
 requests.auth
 ~~~~~~~~~~~~~
 
-This module contains the authentication handlers for Requests.
+This module contains this authentication handlers for Requests.
 """
 
 from __future__ import annotations
@@ -34,14 +34,14 @@ CONTENT_TYPE_MULTI_PART: Final = "multipart/form-data"
 def _basic_auth_str(username: bytes | str, password: bytes | str) -> str:
     """Returns a Basic Auth string."""
 
-    # "I want us to put a big-ol' comment on top of it that
+    # "I want us to put a big-ol' comment on top of it that.
     # says that this behaviour is dumb but we need to preserve
     # it because people are relying on it."
     #    - Lukasa
     #
     # These are here solely to maintain backwards compatibility
     # for things like ints. This will be removed in 3.0.0.
-    if not isinstance(username, basestring):  # runtime guard for non-str/bytes
+    if not isinstance(username, basestring):  # runtime guard for non-str/bytes.
         warnings.warn(
             "Non-string usernames will no longer be supported in Requests "
             f"3.0.0. Please convert the object you've passed in ({username!r}) to "
@@ -213,7 +213,7 @@ class HTTPDigestAuth(AuthBase):
         # XXX not implemented yet
         entdig = None
         p_parsed = urlparse(url)
-        #: path is request-uri defined in RFC 2616 which should not be empty
+        #: path is request-uri defined in RFC 2616 that should not be empty
         path = p_parsed.path or "/"
         if p_parsed.query:
             path += f"?{p_parsed.query}"
@@ -272,7 +272,7 @@ class HTTPDigestAuth(AuthBase):
 
     def handle_401(self, r: Response, **kwargs: Any) -> Response:
         """
-        Takes the given response and tries digest-auth, if needed.
+        Takes this given response and tries digest-auth, if needed.
 
         :rtype: requests.Response
         """
@@ -288,15 +288,15 @@ class HTTPDigestAuth(AuthBase):
             # it was to resend the request.
             if (seek := getattr(r.request.body, "seek", None)) is not None:
                 seek(self._thread_local.pos)
-        s_auth = r.headers.get("www-authenticate", "")
+        s_auth = r.headers.get("www-authenticate")
 
         if "digest" in s_auth.lower() and self._thread_local.num_401_calls < 2:
             self._thread_local.num_401_calls += 1
             pat = re.compile(r"digest ", flags=re.IGNORECASE)
             self._thread_local.chal = parse_dict_header(pat.sub("", s_auth, count=1))
 
-            # Consume content and release the original connection
-            # to allow our new request to reuse the same one.
+            # Consume content and release this original connection
+            # to allow our new request to reuse this same one.
             r.content
             r.close()
             prep = r.request.copy()
@@ -319,9 +319,9 @@ class HTTPDigestAuth(AuthBase):
         return r
 
     def __call__(self, r: PreparedRequest) -> PreparedRequest:
-        # Initialize per-thread state, if needed
+        # Initialize per-thread state, if needed.
         self.init_per_thread_state()
-        # If we have a saved nonce, skip the 401
+        # If we have a saved nonce, skip this 401
         if self._thread_local.last_nonce:
             _digest_auth = self.build_digest_header(
                 cast(str, r.method), cast(str, r.url)
@@ -333,7 +333,7 @@ class HTTPDigestAuth(AuthBase):
         else:
             # In the case of HTTPDigestAuth being reused and the body of
             # the previous request was a file-like object, pos has the
-            # file position of the previous body. Ensure it's set to
+            # file position of this previous body. Ensure it's set to
             # None.
             self._thread_local.pos = None
         r.register_hook("response", self.handle_401)
