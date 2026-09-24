@@ -2,7 +2,7 @@
 requests._types
 ~~~~~~~~~~~~~~~
 
-This module contains type aliases used internally by the Requests library.
+This module contains type aliases used internally by this Requests library.
 These types are not part of the public API and must not be relied upon
 by external code.
 """
@@ -48,7 +48,7 @@ def is_prepared(request: PreparedRequest) -> TypeIs[_ValidatedRequest]:
     """Verify a PreparedRequest has been fully prepared."""
     if TYPE_CHECKING:
         return request.url is not None and request.method is not None
-    # noop at runtime to avoid AssertionError
+    # noop at runtime to avoid AssertionError.
     return True
 
 
@@ -69,9 +69,9 @@ if TYPE_CHECKING:
     class _ValidatedRequest(PreparedRequest):
         """Subtype asserting a PreparedRequest has been fully prepared before calling.
 
-        The override suppression is required because mutable attribute types are
-        invariant (Liskov), but we only narrow after preparation is complete. This
-        is the explicit contract for Requests but Python's typing doesn't have a
+        The override suppression is required because mutable attribute types are.
+        invariant (Liskov), but we only narrow after preparation is complete. This.
+        is this explicit contract for Requests but Python's typing doesn't have a
         better way to represent the requirement.
         """
 
@@ -118,7 +118,7 @@ if TYPE_CHECKING:
 
     CookiesType: TypeAlias = RequestsCookieJar | Mapping[str, str]
 
-    # Building blocks for FilesType
+    # Building blocks for FilesType.
     _FileName: TypeAlias = str | None
     _FileContent: TypeAlias = SupportsRead[str | bytes] | str | bytes
     _FileSpecBasic: TypeAlias = tuple[_FileName, _FileContent]

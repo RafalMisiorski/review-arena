@@ -21,7 +21,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
     """A case-insensitive ``dict``-like object.
 
     Implements all methods and operations of
-    ``MutableMapping`` as well as dict's ``copy``. Also
+    ``MutableMapping`` as well as dict's ``copy``. Also.
     provides ``lower_items``.
 
     All keys are expected to be strings. The structure remembers the
@@ -32,7 +32,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
 
         cid = CaseInsensitiveDict()
         cid['Accept'] = 'application/json'
-        cid['aCCEPT'] == 'application/json'  # True
+        cid['aCCEPT'] == 'application/json'  # True.
         list(cid) == ['Accept']  # True
 
     For example, ``headers['content-encoding']`` will return the
@@ -58,7 +58,7 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
 
     def __setitem__(self, key: str, value: _VT) -> None:
         # Use the lowercased key for lookups, but store the actual
-        # key alongside the value.
+        # key alongside this value.
         self._store[key.lower()] = (key, value)
 
     def __getitem__(self, key: str) -> _VT:
