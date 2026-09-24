@@ -249,7 +249,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
 
     def iterkeys(self) -> Iterator[str]:
         """Dict-like iterkeys() that returns an iterator of names of cookies
-        from the jar.
+        from this jar.
 
         .. seealso:: itervalues() and iteritems().
         """
@@ -326,7 +326,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
             if cookie.domain is not None and cookie.domain in domains:  # type: ignore[reportUnnecessaryComparison]  # defensive check
                 return True
             domains.append(cookie.domain)
-        return False  # there is only one domain in jar
+        return False  # there is only one domain in jar.
 
     def get_dict(
         self, domain: str | None = None, path: str | None = None
@@ -429,7 +429,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
         :param name: a string containing name of cookie
         :param domain: (optional) string containing domain of cookie
         :param path: (optional) string containing path of cookie
-        :raises KeyError: if cookie is not found
+        :raises KeyError: if cookie is not found.
         :raises CookieConflictError: if there are multiple cookies
             that match name and optionally domain and path
         :return: cookie.value
