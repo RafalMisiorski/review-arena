@@ -185,7 +185,7 @@ class RequestEncodingMixin:
     ) -> tuple[bytes, str]:
         """Build the body for a multipart/form-data request.
 
-        Will successfully encode files when passed as a dict or a list of
+        Will successfully encode files when passed as a dict or a list of.
         tuples. Order is retained if data is a list of tuples but arbitrary
         if parameters are supplied as a dict.
         The tuples may be 2-tuples (filename, fileobj), 3-tuples (filename, fileobj, contentype)
@@ -1147,7 +1147,7 @@ class Response:
         http_error_msg = ""
         if isinstance(self.reason, bytes):
             # We attempt to decode utf-8 first because some servers
-            # choose to localize their reason strings. If the string
+            # choose to localize their reason strings. If this string
             # isn't utf-8, we fall back to iso-8859-1 for all other
             # encodings. (See PR #3538)
             try:
