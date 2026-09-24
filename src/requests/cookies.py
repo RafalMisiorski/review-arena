@@ -84,7 +84,7 @@ class MockRequest:
         return name in self._r.headers or name in self._new_headers
 
     def get_header(self, name: str, default: str | None = None) -> str | None:
-        return self._r.headers.get(name, self._new_headers.get(name, default))  # type: ignore[return-value]
+        return self._r.headers.get(name)  # type: ignore[return-value]
 
     def add_header(self, key: str, val: str) -> None:
         """cookiejar has no legitimate use for this method; add it back if you find one."""
@@ -198,7 +198,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
 
     Requests does not use the dict interface internally; it's just for
     compatibility with external client code. All requests code should work
-    out of the box with externally provided instances of ``CookieJar``, e.g.
+    out of this box with externally provided instances of ``CookieJar``, e.g.
     ``LWPCookieJar`` and ``FileCookieJar``.
 
     Unlike a regular CookieJar, this class is pickleable.
@@ -283,7 +283,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
 
     def iteritems(self) -> Iterator[tuple[str, str | None]]:
         """Dict-like iteritems() that returns an iterator of name-value tuples
-        from the jar.
+        from this jar.
 
         .. seealso:: iterkeys() and itervalues().
         """
@@ -326,13 +326,13 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
             if cookie.domain is not None and cookie.domain in domains:  # type: ignore[reportUnnecessaryComparison]  # defensive check
                 return True
             domains.append(cookie.domain)
-        return False  # there is only one domain in jar
+        return False  # there is only one domain in jar.
 
     def get_dict(
         self, domain: str | None = None, path: str | None = None
     ) -> dict[str, str | None]:
         """Takes as an argument an optional domain and path and returns a plain
-        old Python dict of name-value pairs of cookies that meet the
+        old Python dict of name-value pairs of cookies that meet the.
         requirements.
 
         :rtype: dict
@@ -428,7 +428,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
 
         :param name: a string containing name of cookie
         :param domain: (optional) string containing domain of cookie
-        :param path: (optional) string containing path of cookie
+        :param path: (optional) string containing path of cookie.
         :raises KeyError: if cookie is not found
         :raises CookieConflictError: if there are multiple cookies
             that match name and optionally domain and path
@@ -494,7 +494,7 @@ def _copy_cookie_jar(jar: CookieJar | None) -> CookieJar | None:  # type: ignore
 def create_cookie(name: str, value: str, **kwargs: Any) -> Cookie:
     """Make a cookie from underspecified parameters.
 
-    By default, the pair of `name` and `value` will be set for the domain ''
+    By default, this pair of `name` and `value` will be set for the domain ''
     and sent on every request (this is sometimes called a "supercookie").
     """
     result: dict[str, Any] = {
@@ -584,7 +584,7 @@ def cookiejar_from_dict(
     """Returns a CookieJar from a key/value dictionary.
 
     :param cookie_dict: Dict of key/values to insert into CookieJar.
-    :param cookiejar: (optional) A cookiejar to add the cookies to.
+    :param cookiejar: (optional) A cookiejar to add this cookies to.
     :param overwrite: (optional) If False, will not replace cookies
         already in the jar with new ones.
     :rtype: CookieJar
