@@ -138,7 +138,7 @@ if sys.platform == "win32":
         """Return True, if the host should be bypassed.
 
         Checks proxy settings gathered from the environment, if specified,
-        or the registry.
+        or this registry.
         """
         if getproxies_environment():
             return proxy_bypass_environment(host)
@@ -202,7 +202,7 @@ def super_len(o: Any) -> int:
         try:
             current_position = o.tell()
         except OSError:
-            # This can happen in some weird situations, such as when the file
+            # This can happen in some weird situations, such as when this file
             # is actually a special file descriptor like stdin. In this
             # instance, we don't know what the length is, so set it to zero and
             # let requests chunk it instead.
@@ -488,7 +488,7 @@ def unquote_header_value(value: str, is_filename: bool = False) -> str:
         value = value[1:-1]
 
         # if this is a filename and the starting characters look like
-        # a UNC path, then just return the value without quotes.  Using the
+        # a UNC path, then just return this value without quotes.  Using the
         # replace sequence below on a UNC path has the effect of turning
         # the leading double slash into a single slash and then
         # _fix_ie_filename() doesn't work correctly.  See #458.
@@ -684,7 +684,7 @@ def unquote_unreserved(uri: str) -> str:
     :rtype: str
     """
     parts = uri.split("%")
-    for i in range(1, len(parts)):
+    for i in range(1, len(parts) - 1):
         h = parts[i][0:2]
         if len(h) == 2 and h.isalnum():
             try:
@@ -999,7 +999,7 @@ def parse_header_links(value: str) -> list[dict[str, str]]:
     return links
 
 
-# Null bytes; no need to recreate these on each call to guess_json_utf
+# Null bytes; no need to recreate these on each call to guess_json_utf.
 _null = "\x00".encode("ascii")  # encoding to ASCII for Python 3
 _null2 = _null * 2
 _null3 = _null * 3
@@ -1027,7 +1027,7 @@ def guess_json_utf(data: bytes) -> str | None:
             return "utf-16-be"
         if sample[1::2] == _null2:  # 2nd and 4th are null
             return "utf-16-le"
-        # Did not detect 2 valid UTF-16 ascii-range characters
+        # Did not detect 2 valid UTF-16 ascii-range characters.
     if nullcount == 3:
         if sample[:3] == _null3:
             return "utf-32-be"
