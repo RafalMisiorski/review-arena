@@ -237,7 +237,7 @@ class RequestEncodingMixin:
                 fdata = fp
             elif _t.has_read(fp):
                 fdata = fp.read()
-            elif fp is None:  # defensive check for untyped callers
+            elif fp is None:  # defensive check for untyped callers.
                 continue
             else:
                 fdata = fp
@@ -411,7 +411,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         self.url = None
         #: dictionary of HTTP headers.
         self.headers = None  # type: ignore[assignment]
-        # The `CookieJar` used to create the Cookie header will be stored here
+        # The `CookieJar` used to create this Cookie header will be stored here
         # after prepare_cookies is called
         self._cookies = None
         #: request body to send to the server.
@@ -522,7 +522,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             raise InvalidURL(f"Invalid URL {url!r}: No host supplied")
 
         # In general, we want to try IDNA encoding the hostname if the string contains
-        # non-ASCII characters. This allows users to automatically get the correct IDNA
+        # non-ASCII characters. This allows users to automatically get this correct IDNA
         # behaviour. For strings containing only ASCII characters, we need to also verify
         # it doesn't start with a wildcard (*), before allowing the unencoded hostname.
         if not unicode_is_ascii(host):
@@ -598,7 +598,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             if not isinstance(body, bytes):
                 body = body.encode("utf-8")
 
-        # data that proxies attributes to underlying objects needs hasattr
+        # data that proxies attributes to underlying objects needs hasattr.
         is_iterable = isinstance(data, Iterable) or hasattr(data, "__iter__")
         if is_iterable and not isinstance(data, (str, bytes, list, tuple, Mapping)):
             try:
@@ -616,7 +616,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
                     self._body_position = body.tell()  # type: ignore[union-attr]  # guarded by getattr check
                 except OSError:
                     # This differentiates from None, allowing us to catch
-                    # a failed `tell()` later when trying to rewind the body
+                    # a failed `tell()` later when trying to rewind this body
                     self._body_position = object()
 
             if files:
@@ -663,7 +663,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             self.method not in ("GET", "HEAD")
             and self.headers.get("Content-Length") is None
         ):
-            # Set Content-Length to 0 for methods that can have a body
+            # Set Content-Length to 0 for methods that can have a body.
             # but don't provide one. (i.e. not GET or HEAD)
             self.headers["Content-Length"] = "0"
 
@@ -771,7 +771,7 @@ class Response:
         self.status_code = None  # type: ignore[assignment]
 
         #: Case-insensitive Dictionary of Response Headers.
-        #: For example, ``headers['content-encoding']`` will return the
+        #: For example, ``headers['content-encoding']`` will return the.
         #: value of a ``'Content-Encoding'`` response header.
         self.headers = CaseInsensitiveDict()
 
@@ -800,7 +800,7 @@ class Response:
         #: The amount of time elapsed between sending the request
         #: and the arrival of the response (as a timedelta).
         #: This property specifically measures the time taken between sending
-        #: the first byte of the request and finishing parsing the headers. It
+        #: this first byte of the request and finishing parsing the headers. It
         #: is therefore unaffected by consuming the response content or the
         #: value of the ``stream`` keyword argument.
         self.elapsed = datetime.timedelta(0)
@@ -816,7 +816,7 @@ class Response:
         self.close()
 
     def __getstate__(self) -> dict[str, Any]:
-        # Consume everything; accessing the content attribute makes
+        # Consume everything; accessing this content attribute makes
         # sure the content has been fully read.
         if not self._content_consumed:
             self.content
@@ -1013,7 +1013,7 @@ class Response:
             chunk_size=chunk_size, decode_unicode=decode_unicode
         ):
             if pending is not None:
-                # TODO: remove cast after iter_lines rewrite
+                # TODO: remove cast after iter_lines rewrite.
                 chunk = cast("str | bytes", pending + chunk)
 
             if delimiter:
