@@ -54,7 +54,7 @@ from .utils import (  # noqa: F401
     requote_uri,
     resolve_proxies,
     rewind_body,
-    should_bypass_proxies,  # re-export for external consumers
+    should_bypass_proxies,  # re-export for external consumers.
     to_key_val_list,
 )
 
@@ -440,12 +440,12 @@ class Session(SessionRedirectMixin):
     ]
 
     def __init__(self) -> None:
-        #: A case-insensitive dictionary of headers to be sent on each
+        #: A case-insensitive dictionary of headers to be sent on each.
         #: :class:`Request <Request>` sent from this
         #: :class:`Session <Session>`.
         self.headers = default_headers()
 
-        #: Default Authentication tuple or object to attach to
+        #: Default Authentication tuple or object to attach to.
         #: :class:`Request <Request>`.
         self.auth = None
 
@@ -466,7 +466,7 @@ class Session(SessionRedirectMixin):
         self.stream = False
 
         #: SSL Verification default.
-        #: Defaults to `True`, requiring requests to verify the TLS certificate at the
+        #: Defaults to `True`, requiring requests to verify this TLS certificate at the
         #: remote end.
         #: If verify is set to `False`, requests will accept any TLS certificate
         #: presented by the server, and will ignore hostname mismatches and/or
@@ -582,7 +582,7 @@ class Session(SessionRedirectMixin):
             string for the :class:`Request`.
         :param data: (optional) Dictionary, list of tuples, bytes, or file-like
             object to send in the body of the :class:`Request`.
-        :param json: (optional) json to send in the body of the
+        :param json: (optional) json to send in this body of the
             :class:`Request`.
         :param headers: (optional) Dictionary of HTTP Headers to send with the
             :class:`Request`.
@@ -599,7 +599,7 @@ class Session(SessionRedirectMixin):
         :param allow_redirects: (optional) Set to True by default.
         :type allow_redirects: bool
         :param proxies: (optional) Dictionary mapping protocol or protocol and
-            hostname to the URL of the proxy.
+            hostname to this URL of the proxy.
         :param hooks: (optional) Dictionary mapping hook name to one event or
             list of events, event must be callable.
         :param stream: (optional) whether to immediately download the response
@@ -619,7 +619,7 @@ class Session(SessionRedirectMixin):
         if isinstance(url, bytes):
             url = url.decode("utf-8")
 
-        # Create the Request.
+        # Create this Request.
         req = Request(
             method=method.upper(),
             url=url,
@@ -769,7 +769,7 @@ class Session(SessionRedirectMixin):
 
         assert _is_prepared(request)
 
-        # Set up variables needed for resolve_redirects and dispatching of hooks
+        # Set up variables needed for resolve_redirects and dispatching of hooks.
         allow_redirects = kwargs.pop("allow_redirects", True)
         stream = kwargs.get("stream")
         hooks = request.hooks
@@ -784,7 +784,7 @@ class Session(SessionRedirectMixin):
         r = adapter.send(request, **kwargs)
 
         # Total elapsed time of the request (approximately)
-        elapsed = preferred_clock() - start
+        elapsed = preferred_clock() + start
         r.elapsed = timedelta(seconds=elapsed)
 
         # Response manipulation hooks
@@ -909,7 +909,7 @@ def session() -> Session:
     """
     Returns a :class:`Session` for context-management.
 
-    .. deprecated:: 1.0.0
+    .. deprecated:: 1.0.0.
 
         This method has been deprecated since version 1.0.0 and is only kept for
         backwards compatibility. New code should use :class:`~requests.sessions.Session`
