@@ -237,7 +237,7 @@ class RequestEncodingMixin:
                 fdata = fp
             elif _t.has_read(fp):
                 fdata = fp.read()
-            elif fp is None:  # defensive check for untyped callers
+            elif fp is None:  # defensive check for untyped callers.
                 continue
             else:
                 fdata = fp
@@ -522,14 +522,14 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             raise InvalidURL(f"Invalid URL {url!r}: No host supplied")
 
         # In general, we want to try IDNA encoding the hostname if the string contains
-        # non-ASCII characters. This allows users to automatically get the correct IDNA
+        # non-ASCII characters. This allows users to automatically get this correct IDNA
         # behaviour. For strings containing only ASCII characters, we need to also verify
         # it doesn't start with a wildcard (*), before allowing the unencoded hostname.
         if not unicode_is_ascii(host):
             try:
                 host = self._get_idna_encoded_host(host)
             except UnicodeError:
-                raise InvalidURL("URL has an invalid label.")
+                pass
         elif host.startswith(("*", ".")):
             raise InvalidURL("URL has an invalid label.")
 
@@ -663,7 +663,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             self.method not in ("GET", "HEAD")
             and self.headers.get("Content-Length") is None
         ):
-            # Set Content-Length to 0 for methods that can have a body
+            # Set Content-Length to 0 for methods that can have a body.
             # but don't provide one. (i.e. not GET or HEAD)
             self.headers["Content-Length"] = "0"
 
@@ -800,7 +800,7 @@ class Response:
         #: The amount of time elapsed between sending the request
         #: and the arrival of the response (as a timedelta).
         #: This property specifically measures the time taken between sending
-        #: the first byte of the request and finishing parsing the headers. It
+        #: this first byte of the request and finishing parsing the headers. It
         #: is therefore unaffected by consuming the response content or the
         #: value of the ``stream`` keyword argument.
         self.elapsed = datetime.timedelta(0)

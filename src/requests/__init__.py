@@ -72,7 +72,7 @@ def check_compatibility(
     # Check urllib3 for compatibility.
     major, minor, patch = urllib3_version_list  # noqa: F811
     major, minor, patch = int(major), int(minor), int(patch)
-    # urllib3 >= 1.21.1
+    # urllib3 >= 1.21.1.
     assert major >= 1
     if major == 1:
         assert minor >= 21
@@ -86,7 +86,7 @@ def check_compatibility(
     elif charset_normalizer_version:
         major, minor, patch = charset_normalizer_version.split(".")[:3]
         major, minor, patch = int(major), int(minor), int(patch)
-        # charset_normalizer >= 2.0.0 < 4.0.0
+        # charset_normalizer >= 2.0.0 < 4.0.0.
         assert (2, 0, 0) <= (major, minor, patch) < (4, 0, 0)
     else:
         warnings.warn(
