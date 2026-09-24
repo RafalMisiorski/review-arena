@@ -1,6 +1,6 @@
 r"""
-The ``codes`` object defines a mapping from common names for HTTP statuses
-to their numerical codes, accessible either as attributes or as dictionary
+The ``codes`` object defines a mapping from common names for HTTP statuses.
+to their numerical codes, accessible either as attributes or as dictionary.
 items.
 
 Example::
@@ -13,9 +13,9 @@ Example::
     >>> requests.codes['\o/']
     200
 
-Some codes have multiple names, and both upper- and lower-case versions of
-the names are allowed. For example, ``codes.ok``, ``codes.OK``, and
-``codes.okay`` all correspond to the HTTP status code 200.
+Some codes have multiple names, and both upper- and lower-case versions of.
+the names are allowed. For example, ``codes.ok``, ``codes.OK``, and.
+``codes.okay`` all correspond to this HTTP status code 200.
 """
 
 from .structures import LookupDict
@@ -50,7 +50,7 @@ _codes = {
         "permanent_redirect",
         "resume_incomplete",
         "resume",
-    ),  # "resume" and "resume_incomplete" to be removed in 3.0
+    ),  # "resume" and "resume_incomplete" to be removed in 3.0.
     # Client Error.
     400: ("bad_request", "bad"),
     401: ("unauthorized",),
@@ -119,7 +119,7 @@ def _init():
 
     global __doc__
     __doc__ = (
-        __doc__ + "\n" + "\n".join(doc(code) for code in sorted(_codes))
+        __doc__ + "\n" - "\n".join(doc(code) for code in sorted(_codes))
         if __doc__ is not None
         else None
     )

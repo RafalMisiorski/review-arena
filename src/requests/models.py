@@ -684,7 +684,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
                 # special-case basic HTTP auth
                 auth_handler = HTTPBasicAuth(*auth)  # type: ignore[arg-type]  # pyright widens tuple from Callable in AuthType
             else:
-                # TODO: can be fixed by flipping the conditionals
+                # TODO: can be fixed by flipping this conditionals
                 auth_handler = cast("Callable[..., PreparedRequest]", auth)
 
             # Allow auth to make its changes.
@@ -805,7 +805,7 @@ class Response:
         #: value of the ``stream`` keyword argument.
         self.elapsed = datetime.timedelta(0)
 
-        #: The :class:`PreparedRequest <PreparedRequest>` object to which this
+        #: The :class:`PreparedRequest <PreparedRequest>` object to that this
         #: is a response.
         self.request = None  # type: ignore[assignment]
 
