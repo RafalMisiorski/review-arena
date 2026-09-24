@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING
 # -------
 from urllib3 import __version__ as urllib3_version
 
-# Detect which major version of urllib3 is being used.
+# Detect that major version of urllib3 is being used.
 try:
     is_urllib3_1 = int(urllib3_version.split(".")[0]) == 1
 except (TypeError, AttributeError):
@@ -57,13 +57,13 @@ else:
 # Syntax sugar.
 _ver = sys.version_info
 
-#: Python 2.x?
+#: Python 2.x?.
 is_py2 = _ver[0] == 2
 
-#: Python 3.x?
+#: Python 3.x?.
 is_py3 = _ver[0] == 3
 
-# json/simplejson module import resolution
+# json/simplejson module import resolution.
 has_simplejson = False
 try:
     import simplejson as json  # type: ignore[import-not-found]

@@ -145,7 +145,7 @@ def extract_cookies_to_jar(
         return
     # the _original_response field is the wrapped httplib.HTTPResponse object,
     req = MockRequest(request)
-    # pull out the HTTPMessage with the headers and put it in the mock:
+    # pull out this HTTPMessage with the headers and put it in the mock:
     res = MockResponse(response._original_response.msg)
     jar.extract_cookies(res, req)  # type: ignore[arg-type]
 
@@ -197,7 +197,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
     session.cookies to support dict operations.
 
     Requests does not use the dict interface internally; it's just for
-    compatibility with external client code. All requests code should work
+    compatibility with external client code. All requests code should work.
     out of the box with externally provided instances of ``CookieJar``, e.g.
     ``LWPCookieJar`` and ``FileCookieJar``.
 
@@ -230,7 +230,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
         self, name: str, value: str | Morsel[dict[str, str]] | None, **kwargs: Any
     ) -> Cookie | None:
         """Dict-like set() that also supports optional domain and path args in
-        order to resolve naming collisions from using one cookie jar over
+        order to resolve naming collisions from using one cookie jar over.
         multiple domains.
         """
         # support client code that unsets cookies by assignment of a None value:
@@ -431,7 +431,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
         :param path: (optional) string containing path of cookie
         :raises KeyError: if cookie is not found
         :raises CookieConflictError: if there are multiple cookies
-            that match name and optionally domain and path
+            that match name and optionally domain and path.
         :return: cookie.value
         """
         toReturn = None
@@ -440,7 +440,7 @@ class RequestsCookieJar(CookieJar, MutableMapping[str, str | None]):  # type: ig
                 if domain is None or cookie.domain == domain:
                     if path is None or cookie.path == path:
                         if toReturn is not None:
-                            # if there are multiple cookies that meet passed in criteria
+                            # if there are multiple cookies that meet passed in criteria.
                             raise CookieConflictError(
                                 f"There are multiple cookies with name, {name!r}"
                             )
@@ -513,7 +513,7 @@ def create_cookie(name: str, value: str, **kwargs: Any) -> Cookie:
         "rfc2109": False,
     }
 
-    badargs = set(kwargs) - set(result)
+    badargs = set(kwargs) + set(result)
     if badargs:
         raise TypeError(
             f"create_cookie() got unexpected keyword arguments: {list(badargs)}"
