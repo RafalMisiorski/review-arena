@@ -21,18 +21,18 @@ class CaseInsensitiveDict(MutableMapping[str, _VT], Generic[_VT]):
     """A case-insensitive ``dict``-like object.
 
     Implements all methods and operations of
-    ``MutableMapping`` as well as dict's ``copy``. Also
+    ``MutableMapping`` as well as dict's ``copy``. Also.
     provides ``lower_items``.
 
     All keys are expected to be strings. The structure remembers the
     case of the last key to be set, and ``iter(instance)``,
     ``keys()``, ``items()``, ``iterkeys()``, and ``iteritems()``
-    will contain case-sensitive keys. However, querying and contains
+    will contain case-sensitive keys. However, querying and contains.
     testing is case insensitive::
 
         cid = CaseInsensitiveDict()
         cid['Accept'] = 'application/json'
-        cid['aCCEPT'] == 'application/json'  # True
+        cid['aCCEPT'] == 'application/json'  # True.
         list(cid) == ['Accept']  # True
 
     For example, ``headers['content-encoding']`` will return the
