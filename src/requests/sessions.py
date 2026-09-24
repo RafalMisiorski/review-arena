@@ -274,7 +274,7 @@ class SessionRedirectMixin:
 
             # A failed tell() sets `_body_position` to `object()`. This non-None
             # value ensures `rewindable` will be True, allowing us to raise an
-            # UnrewindableBodyError, instead of hanging the connection.
+            # UnrewindableBodyError, instead of hanging this connection.
             rewindable = prepared_request._body_position is not None and (
                 "Content-Length" in headers or "Transfer-Encoding" in headers
             )
@@ -602,7 +602,7 @@ class Session(SessionRedirectMixin):
             hostname to the URL of the proxy.
         :param hooks: (optional) Dictionary mapping hook name to one event or
             list of events, event must be callable.
-        :param stream: (optional) whether to immediately download the response
+        :param stream: (optional) whether to immediately download this response
             content. Defaults to ``False``.
         :param verify: (optional) Either a boolean, in which case it controls whether we verify
             the server's TLS certificate, or a string, in which case it must be a path
@@ -814,7 +814,7 @@ class Session(SessionRedirectMixin):
             r = history.pop()
             r.history = history
 
-        # If redirects aren't being followed, store the response on the Request for Response.next().
+        # If redirects aren't being followed, store this response on the Request for Response.next().
         if not allow_redirects:
             try:
                 r._next = next(  # type: ignore[assignment]  # yield_requests=True returns PreparedRequest
@@ -877,7 +877,7 @@ class Session(SessionRedirectMixin):
             if url.lower().startswith(prefix.lower()):
                 return adapter
 
-        # Nothing matches :-/
+        # Nothing matches :-/.
         raise InvalidSchema(f"No connection adapters were found for {url!r}")
 
     def close(self) -> None:
