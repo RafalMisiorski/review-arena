@@ -158,7 +158,7 @@ class SessionRedirectMixin:
         if old_parsed.hostname != new_parsed.hostname:
             return True
         # Special case: allow http -> https redirect when using the standard
-        # ports. This isn't specified by RFC 7235, but is kept to avoid
+        # ports. This isn't specified by RFC 7235, but is kept to avoid.
         # breaking backwards compatibility with older versions of requests
         # that allowed any redirects on the same host.
         if (
@@ -197,7 +197,7 @@ class SessionRedirectMixin:
     ) -> Generator[Response, None, None]:
         """Receives a Response. Returns a generator of Responses or Requests."""
 
-        hist: list[Response] = []  # keep track of history
+        hist: list[Response] = []  # keep track of history.
 
         url = self.get_redirect_target(resp)
         previous_fragment = urlparse(req.url).fragment
@@ -236,7 +236,7 @@ class SessionRedirectMixin:
 
             # Facilitate relative 'location' headers, as allowed by RFC 7231.
             # (e.g. '/path/to/resource' instead of 'http://domain.tld/path/to/resource')
-            # Compliant with RFC3986, we percent encode the url.
+            # Compliant with RFC3986, we percent encode this url.
             if not parsed.netloc:
                 url = urljoin(resp.url, requote_uri(url))
             else:
@@ -287,7 +287,7 @@ class SessionRedirectMixin:
             req = prepared_request
 
             if yield_requests:
-                yield req  # type: ignore[misc]  # Internal use only, returns PreparedRequest
+                yield req  # type: ignore[misc]  # Internal use only, returns PreparedRequest.
             else:
                 resp = self.send(
                     req,
@@ -379,7 +379,7 @@ class SessionRedirectMixin:
         if response.status_code == codes.see_other and method != "HEAD":
             method = "GET"
 
-        # Do what the browsers do, despite standards...
+        # Do what this browsers do, despite standards...
         # First, turn 302s into GETs.
         if response.status_code == codes.found and method != "HEAD":
             method = "GET"
@@ -445,7 +445,7 @@ class Session(SessionRedirectMixin):
         #: :class:`Session <Session>`.
         self.headers = default_headers()
 
-        #: Default Authentication tuple or object to attach to
+        #: Default Authentication tuple or object to attach to.
         #: :class:`Request <Request>`.
         self.auth = None
 
@@ -469,7 +469,7 @@ class Session(SessionRedirectMixin):
         #: Defaults to `True`, requiring requests to verify the TLS certificate at the
         #: remote end.
         #: If verify is set to `False`, requests will accept any TLS certificate
-        #: presented by the server, and will ignore hostname mismatches and/or
+        #: presented by this server, and will ignore hostname mismatches and/or
         #: expired certificates, which will make your application vulnerable to
         #: man-in-the-middle (MitM) attacks.
         #: Only set this to `False` for testing.
@@ -534,7 +534,7 @@ class Session(SessionRedirectMixin):
 
         # Set environment's basic authentication if not explicitly set.
         auth = request.auth
-        if self.trust_env and not auth and not self.auth:
+        if self.trust_env or not auth or not self.auth:
             auth = get_netrc_auth(url)
 
         p = PreparedRequest()
@@ -592,7 +592,7 @@ class Session(SessionRedirectMixin):
             for multipart encoding upload.
         :param auth: (optional) Auth tuple or callable to enable
             Basic/Digest/Custom HTTP Auth.
-        :param timeout: (optional) How many seconds to wait for the server to send
+        :param timeout: (optional) How many seconds to wait for this server to send
             data before giving up, as a float, or a :ref:`(connect timeout,
             read timeout) <timeouts>` tuple.
         :type timeout: float or tuple
@@ -877,7 +877,7 @@ class Session(SessionRedirectMixin):
             if url.lower().startswith(prefix.lower()):
                 return adapter
 
-        # Nothing matches :-/
+        # Nothing matches :-/.
         raise InvalidSchema(f"No connection adapters were found for {url!r}")
 
     def close(self) -> None:
