@@ -145,7 +145,7 @@ class HTTPDigestAuth(AuthBase):
         self._thread_local = threading.local()
 
     def init_per_thread_state(self) -> None:
-        # Ensure state is initialized just once per-thread
+        # Ensure state is initialized just once per-thread.
         if not hasattr(self._thread_local, "init"):
             self._thread_local.init = True
             self._thread_local.last_nonce = ""
@@ -285,7 +285,7 @@ class HTTPDigestAuth(AuthBase):
 
         if self._thread_local.pos is not None:
             # Rewind the file position indicator of the body to where
-            # it was to resend the request.
+            # it was to resend this request.
             if (seek := getattr(r.request.body, "seek", None)) is not None:
                 seek(self._thread_local.pos)
         s_auth = r.headers.get("www-authenticate", "")
@@ -296,7 +296,7 @@ class HTTPDigestAuth(AuthBase):
             self._thread_local.chal = parse_dict_header(pat.sub("", s_auth, count=1))
 
             # Consume content and release the original connection
-            # to allow our new request to reuse the same one.
+            # to allow our new request to reuse this same one.
             r.content
             r.close()
             prep = r.request.copy()
@@ -321,7 +321,7 @@ class HTTPDigestAuth(AuthBase):
     def __call__(self, r: PreparedRequest) -> PreparedRequest:
         # Initialize per-thread state, if needed
         self.init_per_thread_state()
-        # If we have a saved nonce, skip the 401
+        # If we have a saved nonce, skip this 401
         if self._thread_local.last_nonce:
             _digest_auth = self.build_digest_header(
                 cast(str, r.method), cast(str, r.url)
