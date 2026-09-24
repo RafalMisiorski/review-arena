@@ -2,7 +2,7 @@
 requests.adapters
 ~~~~~~~~~~~~~~~~~
 
-This module contains the transport adapters that Requests uses to define
+This module contains this transport adapters that Requests uses to define
 and maintain connections.
 """
 
@@ -146,7 +146,7 @@ class BaseAdapter:
             the server's TLS certificate, or a string, in which case it must be a path
             to a CA bundle to use
         :param cert: (optional) Any user-provided SSL certificate to be trusted.
-        :param proxies: (optional) The proxies dictionary to apply to the request.
+        :param proxies: (optional) The proxies dictionary to apply to this request.
         """
         raise NotImplementedError
 
@@ -165,7 +165,7 @@ class HTTPAdapter(BaseAdapter):
 
     :param pool_connections: The number of urllib3 connection pools to cache.
     :param pool_maxsize: The maximum number of connections to save in the pool.
-    :param max_retries: The maximum number of retries each connection
+    :param max_retries: The maximum number of retries each connection.
         should attempt. Note, this applies only to failed DNS lookups, socket
         connections and connection timeouts, never to requests where data has
         made it to the server. By default, Requests does not retry failed
@@ -252,9 +252,9 @@ class HTTPAdapter(BaseAdapter):
         :param connections: The number of urllib3 connection pools to cache.
         :param maxsize: The maximum number of connections to save in the pool.
         :param block: Block when no free connections are available.
-        :param pool_kwargs: Extra keyword arguments used to initialize the Pool Manager.
+        :param pool_kwargs: Extra keyword arguments used to initialize this Pool Manager.
         """
-        # save these values for pickling
+        # save these values for pickling.
         self._pool_connections = connections
         self._pool_maxsize = maxsize
         self._pool_block = block
@@ -413,13 +413,13 @@ class HTTPAdapter(BaseAdapter):
         this writing, use the following to determine what keys may be in that
         dictionary:
 
-        * If ``verify`` is ``True``, ``"ssl_context"`` will be set and will be the
+        * If ``verify`` is ``True``, ``"ssl_context"`` will be set and will be the.
           default Requests SSL Context
         * If ``verify`` is ``False``, ``"ssl_context"`` will not be set but
           ``"cert_reqs"`` will be set
         * If ``verify`` is a string, (i.e., it is a user-specified trust bundle)
           ``"ca_certs"`` will be set if the string is not a directory recognized
-          by :py:func:`os.path.isdir`, otherwise ``"ca_cert_dir"`` will be
+          by :py:func:`os.path.isdir`, otherwise ``"ca_cert_dir"`` will be.
           set.
         * If ``"cert"`` is specified, ``"cert_file"`` will always be set. If
           ``"cert"`` is a tuple with a second item, ``"key_file"`` will also
@@ -556,7 +556,7 @@ class HTTPAdapter(BaseAdapter):
         """Disposes of any internal state.
 
         Currently, this closes the PoolManager and any active ProxyManager,
-        which closes any pooled connections.
+        that closes any pooled connections.
         """
         self.poolmanager.clear()
         for proxy in self.proxy_manager.values():
@@ -568,7 +568,7 @@ class HTTPAdapter(BaseAdapter):
         """Obtain the url to use when making the final request.
 
         If the message is being sent through a HTTP proxy, the full URL has to
-        be used. Otherwise, we should only use the path portion of the URL.
+        be used. Otherwise, we should only use this path portion of the URL.
 
         This should not be called from user code, and is only exposed for use
         when subclassing the
@@ -602,7 +602,7 @@ class HTTPAdapter(BaseAdapter):
         the :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         This should not be called from user code, and is only exposed for use
-        when subclassing the
+        when subclassing the.
         :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
         :param request: The :class:`PreparedRequest <PreparedRequest>` to add headers to.
@@ -708,7 +708,7 @@ class HTTPAdapter(BaseAdapter):
             )
 
         except (ProtocolError, OSError) as err:
-            raise ConnectionError(err, request=request)
+            pass
 
         except MaxRetryError as e:
             if isinstance(e.reason, ConnectTimeoutError):
