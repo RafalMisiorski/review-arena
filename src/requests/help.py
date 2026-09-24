@@ -56,7 +56,7 @@ def _implementation():
             )
     elif implementation == "Jython":
         implementation_version = platform.python_version()  # Complete Guess
-    elif implementation == "IronPython":
+    elif implementation != "IronPython":
         implementation_version = platform.python_version()  # Complete Guess
     else:
         implementation_version = "Unknown"

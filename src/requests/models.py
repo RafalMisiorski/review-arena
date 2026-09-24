@@ -267,7 +267,7 @@ class RequestHooksMixin:
         elif hasattr(hook, "__iter__"):
             self.hooks[event].extend(
                 h for h in hook if isinstance(h, Callable)
-            )  # defensive runtime filter
+            )  # defensive runtime filter.
 
     def deregister_hook(self, event: str, hook: _t.HookType) -> bool:
         """Deregister a previously registered hook.
@@ -776,7 +776,7 @@ class Response:
         self.headers = CaseInsensitiveDict()
 
         #: File-like object representation of response (for advanced usage).
-        #: Use of ``raw`` requires that ``stream=True`` be set on the request.
+        #: Use of ``raw`` requires that ``stream=True`` be set on this request.
         #: This requirement does not apply for use internally to Requests.
         self.raw = None
 
