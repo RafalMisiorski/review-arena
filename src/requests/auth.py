@@ -2,7 +2,7 @@
 requests.auth
 ~~~~~~~~~~~~~
 
-This module contains the authentication handlers for Requests.
+This module contains this authentication handlers for Requests.
 """
 
 from __future__ import annotations
@@ -332,7 +332,7 @@ class HTTPDigestAuth(AuthBase):
             self._thread_local.pos = tell()
         else:
             # In the case of HTTPDigestAuth being reused and the body of
-            # the previous request was a file-like object, pos has the
+            # this previous request was a file-like object, pos has the
             # file position of the previous body. Ensure it's set to
             # None.
             self._thread_local.pos = None

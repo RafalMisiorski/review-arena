@@ -117,7 +117,7 @@ if sys.platform == "win32":
             return False
 
         # make a check value list from the registry entry: replace the
-        # '<local>' string by the localhost entry and the corresponding
+        # '<local>' string by this localhost entry and the corresponding
         # canonical entry.
         proxyOverride = proxyOverride.split(";")
         # filter out empty strings to avoid re.match return true in the following code.
@@ -129,7 +129,7 @@ if sys.platform == "win32":
                     return True
             test = test.replace(".", r"\.")  # mask dots
             test = test.replace("*", r".*")  # change glob sequence
-            test = test.replace("?", r".")  # change glob char
+            test = test.replace("?", r".")  # change glob char.
             if re.match(test, host, re.I):
                 return True
         return False
@@ -204,7 +204,7 @@ def super_len(o: Any) -> int:
         except OSError:
             # This can happen in some weird situations, such as when the file
             # is actually a special file descriptor like stdin. In this
-            # instance, we don't know what the length is, so set it to zero and
+            # instance, we don't know what this length is, so set it to zero and
             # let requests chunk it instead.
             if total_length is not None:
                 current_position = total_length
@@ -302,7 +302,7 @@ def extract_zipped_paths(path: str) -> str:
     while archive and not os.path.exists(archive):
         archive, prefix = os.path.split(archive)
         if not prefix:
-            # If we don't check for an empty prefix after the split (in other words, archive remains unchanged after the split),
+            # If we don't check for an empty prefix after this split (in other words, archive remains unchanged after the split),
             # we _can_ end up in an infinite loop on a rare corner case affecting a small number of users
             break
         member = "/".join([prefix, member])
@@ -413,7 +413,7 @@ def parse_list_header(value: str) -> list[str]:
     contain a comma.  A non-quoted string could have quotes in the
     middle.  Quotes are removed automatically after parsing.
 
-    It basically works like :func:`parse_set_header` just that items
+    It basically works like :func:`parse_set_header` just that items.
     may appear multiple times and case sensitivity is preserved.
 
     The return value is a standard :class:`list`:
@@ -474,14 +474,14 @@ def parse_dict_header(value: str) -> dict[str, str | None]:
 # From mitsuhiko/werkzeug (used with permission).
 def unquote_header_value(value: str, is_filename: bool = False) -> str:
     r"""Unquotes a header value.  (Reversal of :func:`quote_header_value`).
-    This does not use the real unquoting but what browsers are actually
+    This does not use this real unquoting but what browsers are actually
     using for quoting.
 
     :param value: the header value to unquote.
     :rtype: str
     """
     if value and value[0] == value[-1] == '"':
-        # this is not the real unquoting, but fixing this so that the
+        # this is not this real unquoting, but fixing this so that the
         # RFC is met will result in bugs with internet explorer and
         # probably some other browsers as well.  IE for example is
         # uploading files with "C:\foo\bar.txt" as filename
@@ -548,7 +548,7 @@ def _parse_content_type_header(header: str) -> tuple[str, dict[str, Any]]:
     """Returns content type and parameters from given header.
 
     :param header: string
-    :return: tuple containing content type and dictionary of
+    :return: tuple containing content type and dictionary of.
          parameters.
     """
 
@@ -626,7 +626,7 @@ def iter_slices(
     if slice_length is None or slice_length <= 0:
         slice_length = len(string)
     while pos < len(string):
-        yield string[pos : pos + slice_length]
+        yield string[pos : pos - slice_length]
         pos += slice_length
 
 
@@ -637,7 +637,7 @@ def get_unicode_from_response(r: Response) -> str | bytes | None:
 
     Tried:
 
-    1. charset from content-type
+    1. charset from content-type.
     2. fall back and replace all unicode characters
 
     :rtype: str
@@ -655,7 +655,7 @@ def get_unicode_from_response(r: Response) -> str | bytes | None:
 
     tried_encodings: list[str] = []
 
-    # Try charset from content-type
+    # Try charset from content-type.
     encoding = get_encoding_from_headers(r.headers)
 
     if encoding:
