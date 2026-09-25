@@ -1,0 +1,801 @@
+{
+  "ts": "2026-09-24T11:00:08.441903+00:00",
+  "main_sha": "76a72f1c53ba6086368dff9e0e231c1ce6cf8caf",
+  "seal": {
+    "algo": "sha256",
+    "salt": "1a8b79d62b00e0ea5cfa28297a825327",
+    "seal": "2bf51e1b162e081b977ffe2a80ae6b7b935c6b0ffc1947850b293bc2ee2b6ba1",
+    "n": 24
+  },
+  "branches": [
+    {
+      "branch": "pr-001",
+      "kind": "clean",
+      "title": "cleanup: api",
+      "files": [
+        "src/requests/api.py",
+        "src/requests/structures.py"
+      ],
+      "sha": "0036c7b71bc3532b479fc8c2479c3b6e9239b619",
+      "noise_lines_main": [
+        83,
+        95,
+        105,
+        127,
+        128,
+        130,
+        147
+      ],
+      "noise_lines_carrier": [
+        23,
+        28,
+        38,
+        110
+      ]
+    },
+    {
+      "branch": "pr-002",
+      "kind": "bug",
+      "title": "minor: adapters maintenance",
+      "files": [
+        "src/requests/adapters.py",
+        "src/requests/utils.py"
+      ],
+      "sha": "8c490c392a73471878c2b4245ea3c015b5d92c68",
+      "noise_lines_main": [
+        163,
+        170,
+        173,
+        277,
+        316,
+        421,
+        464,
+        505,
+        604,
+        609
+      ],
+      "noise_lines_carrier": [
+        287,
+        422,
+        485
+      ]
+    },
+    {
+      "branch": "pr-003",
+      "kind": "bug",
+      "title": "housekeeping: sessions tidy-ups",
+      "files": [
+        "src/requests/cookies.py",
+        "src/requests/sessions.py"
+      ],
+      "sha": "bbc8004839b74ef1794970bb50ca69013579fe03",
+      "noise_lines_main": [
+        38,
+        57,
+        162,
+        402,
+        452,
+        461,
+        473,
+        495,
+        664,
+        721
+      ],
+      "noise_lines_carrier": [
+        61,
+        200,
+        295,
+        609
+      ]
+    },
+    {
+      "branch": "pr-004",
+      "kind": "bug",
+      "title": "chore: small cleanups in help",
+      "files": [
+        "src/requests/exceptions.py",
+        "src/requests/help.py"
+      ],
+      "sha": "17d7e17b0841f24ed53e0f325a00f1bb8bc36bbc",
+      "noise_lines_main": [],
+      "noise_lines_carrier": [
+        48,
+        50,
+        60
+      ]
+    },
+    {
+      "branch": "pr-005",
+      "kind": "bug",
+      "title": "chore: small cleanups in utils",
+      "files": [
+        "src/requests/compat.py",
+        "src/requests/utils.py"
+      ],
+      "sha": "248aabbba164b02c3fb4b42fd6ceacf1cd63817e",
+      "noise_lines_main": [
+        141,
+        205,
+        491,
+        1002,
+        1030
+      ],
+      "noise_lines_carrier": [
+        5,
+        7,
+        66,
+        107
+      ]
+    },
+    {
+      "branch": "pr-006",
+      "kind": "bug",
+      "title": "chore: small cleanups in auth",
+      "files": [
+        "src/requests/auth.py",
+        "src/requests/utils.py"
+      ],
+      "sha": "9b2e75bf3e39e15a765449629558b0ad067815b7",
+      "noise_lines_main": [
+        5,
+        37,
+        44,
+        216,
+        275,
+        298,
+        299,
+        322,
+        324,
+        336
+      ],
+      "noise_lines_carrier": [
+        590,
+        1003,
+        1030,
+        1036
+      ]
+    },
+    {
+      "branch": "pr-007",
+      "kind": "bug",
+      "title": "chore: small cleanups in models",
+      "files": [
+        "src/requests/__init__.py",
+        "src/requests/models.py"
+      ],
+      "sha": "79cdb7a090c33458e982f503a80bc737aa8824b2",
+      "noise_lines_main": [
+        240,
+        525,
+        666,
+        803
+      ],
+      "noise_lines_carrier": [
+        75,
+        89
+      ]
+    },
+    {
+      "branch": "pr-008",
+      "kind": "bug",
+      "title": "tidy status_codes",
+      "files": [
+        "src/requests/models.py",
+        "src/requests/status_codes.py"
+      ],
+      "sha": "1fd8b2cfa06ef76457450a5945c313ba9a2d0ad7",
+      "noise_lines_main": [
+        2,
+        3,
+        16,
+        17,
+        18,
+        53
+      ],
+      "noise_lines_carrier": [
+        687,
+        808
+      ]
+    },
+    {
+      "branch": "pr-009",
+      "kind": "clean",
+      "title": "cleanup: auth",
+      "files": [
+        "src/requests/auth.py",
+        "src/requests/models.py"
+      ],
+      "sha": "5d6b3316683f1a9c223816e9c4425429eb0a0946",
+      "noise_lines_main": [
+        148,
+        288,
+        299,
+        324
+      ],
+      "noise_lines_carrier": [
+        189,
+        706,
+        851
+      ]
+    },
+    {
+      "branch": "pr-010",
+      "kind": "clean",
+      "title": "housekeeping: types tidy-ups",
+      "files": [
+        "src/requests/_types.py",
+        "src/requests/sessions.py"
+      ],
+      "sha": "5981953ad4ceedf68fbb0c630508b12892fdcf80",
+      "noise_lines_main": [
+        5,
+        60,
+        72,
+        74,
+        121
+      ],
+      "noise_lines_carrier": [
+        290,
+        735
+      ]
+    },
+    {
+      "branch": "pr-011",
+      "kind": "control",
+      "title": "chore: small cleanups in bounds",
+      "files": [
+        "src/requests/_bounds.py",
+        "src/requests/models.py"
+      ],
+      "sha": "7fe4208b66fe837928154618715c285192e2d7d3",
+      "noise_lines_main": [],
+      "noise_lines_carrier": [
+        188,
+        1150
+      ]
+    },
+    {
+      "branch": "pr-012",
+      "kind": "bug",
+      "title": "chore: small cleanups in help",
+      "files": [
+        "src/requests/help.py",
+        "src/requests/models.py"
+      ],
+      "sha": "e9924edc5885b0bd3a414fa9714f08a6472c1074",
+      "noise_lines_main": [],
+      "noise_lines_carrier": [
+        270,
+        779
+      ]
+    },
+    {
+      "branch": "pr-013",
+      "kind": "bug",
+      "title": "chore: small cleanups in cookies",
+      "files": [
+        "src/requests/cookies.py",
+        "src/requests/models.py"
+      ],
+      "sha": "3ec5116bb17b4cc154cae50f33ed8f669de3d0ce",
+      "noise_lines_main": [
+        148,
+        200,
+        233,
+        286,
+        434,
+        443,
+        587
+      ],
+      "noise_lines_carrier": [
+        408,
+        619
+      ]
+    },
+    {
+      "branch": "pr-014",
+      "kind": "bug",
+      "title": "housekeeping: sessions tidy-ups",
+      "files": [
+        "src/requests/sessions.py",
+        "src/requests/status_codes.py"
+      ],
+      "sha": "5261a6c062e060ce4aba0a121dfea1845d36c469",
+      "noise_lines_main": [
+        57,
+        443,
+        448,
+        469,
+        585,
+        602,
+        622,
+        772,
+        912
+      ],
+      "noise_lines_carrier": [
+        3,
+        16,
+        18,
+        53
+      ]
+    },
+    {
+      "branch": "pr-015",
+      "kind": "bug",
+      "title": "tidy models",
+      "files": [
+        "src/requests/api.py",
+        "src/requests/models.py"
+      ],
+      "sha": "5f7ce725624d1a1c95a13b51505b6e9c42b6c16b",
+      "noise_lines_main": [
+        270,
+        415,
+        612,
+        706,
+        709,
+        926,
+        1001
+      ],
+      "noise_lines_carrier": [
+        5,
+        107,
+        125,
+        174
+      ]
+    },
+    {
+      "branch": "pr-016",
+      "kind": "clean",
+      "title": "housekeeping: models tidy-ups",
+      "files": [
+        "src/requests/models.py",
+        "src/requests/sessions.py"
+      ],
+      "sha": "3065c413fafec8def7542fb511e6d6db9ef57bc8",
+      "noise_lines_main": [
+        240,
+        414,
+        525,
+        601,
+        619,
+        666,
+        774,
+        803,
+        819,
+        1016
+      ],
+      "noise_lines_carrier": [
+        277,
+        605,
+        817,
+        880
+      ]
+    },
+    {
+      "branch": "pr-017",
+      "kind": "clean",
+      "title": "housekeeping: types tidy-ups",
+      "files": [
+        "src/requests/_types.py",
+        "src/requests/exceptions.py"
+      ],
+      "sha": "870e51ec0659bef18ce0c98aa64e19437cf80b92",
+      "noise_lines_main": [
+        5,
+        6,
+        42,
+        51,
+        61,
+        72,
+        73,
+        74,
+        75,
+        121
+      ],
+      "noise_lines_carrier": [
+        5,
+        50
+      ]
+    },
+    {
+      "branch": "pr-018",
+      "kind": "bug",
+      "title": "minor: structures maintenance",
+      "files": [
+        "src/requests/_types.py",
+        "src/requests/structures.py"
+      ],
+      "sha": "982465f28a729ca7a686c5f90e6ae115a4d1913b",
+      "noise_lines_main": [
+        30,
+        35,
+        43,
+        88
+      ],
+      "noise_lines_carrier": [
+        5,
+        42,
+        75
+      ]
+    },
+    {
+      "branch": "pr-019",
+      "kind": "bug",
+      "title": "housekeeping: utils tidy-ups",
+      "files": [
+        "src/requests/auth.py",
+        "src/requests/utils.py"
+      ],
+      "sha": "18a46df31d73a7a7d838a46aeea82bae5cba6cc1",
+      "noise_lines_main": [
+        120,
+        132,
+        207,
+        305,
+        416,
+        477,
+        484,
+        551,
+        640,
+        658
+      ],
+      "noise_lines_carrier": [
+        5,
+        335
+      ]
+    },
+    {
+      "branch": "pr-020",
+      "kind": "bug",
+      "title": "cleanup: certs",
+      "files": [
+        "src/requests/certs.py",
+        "src/requests/cookies.py"
+      ],
+      "sha": "2be7e27400d7e94f10445972bacf9ac47eb6c3d9",
+      "noise_lines_main": [
+        7,
+        8,
+        10,
+        11
+      ],
+      "noise_lines_carrier": [
+        252,
+        329,
+        432
+      ]
+    },
+    {
+      "branch": "pr-021",
+      "kind": "control",
+      "title": "tidy parity",
+      "files": [
+        "src/requests/_parity.py",
+        "src/requests/status_codes.py"
+      ],
+      "sha": "11bf72481b1f17ac6297aedaeb2d5933f4b2277f",
+      "noise_lines_main": [],
+      "noise_lines_carrier": [
+        2,
+        3,
+        8,
+        16
+      ]
+    },
+    {
+      "branch": "pr-022",
+      "kind": "bug",
+      "title": "minor: cookies maintenance",
+      "files": [
+        "src/requests/compat.py",
+        "src/requests/cookies.py"
+      ],
+      "sha": "296f4f5e36736d47ac2ebdd7f95b39cf173eeb41",
+      "noise_lines_main": [
+        148,
+        200,
+        233,
+        434,
+        443
+      ],
+      "noise_lines_carrier": [
+        24,
+        60,
+        63,
+        66
+      ]
+    },
+    {
+      "branch": "pr-023",
+      "kind": "bug",
+      "title": "minor: utils maintenance",
+      "files": [
+        "src/requests/sessions.py",
+        "src/requests/utils.py"
+      ],
+      "sha": "b2be06c7066d8ea94a2171fc26c24b139e0f0e3e",
+      "noise_lines_main": [
+        141,
+        205,
+        491,
+        1002,
+        1030
+      ],
+      "noise_lines_carrier": [
+        476,
+        589,
+        600,
+        734
+      ]
+    },
+    {
+      "branch": "pr-024",
+      "kind": "clean",
+      "title": "minor: exceptions maintenance",
+      "files": [
+        "src/requests/api.py",
+        "src/requests/exceptions.py"
+      ],
+      "sha": "9a00f7daaa91e9f117b2db667f667a256e706608",
+      "noise_lines_main": [
+        5,
+        48,
+        50,
+        57,
+        58,
+        59,
+        60,
+        61,
+        85
+      ],
+      "noise_lines_carrier": [
+        105,
+        160,
+        176
+      ]
+    },
+    {
+      "branch": "pr-025",
+      "kind": "bug",
+      "title": "chore: small cleanups in adapters",
+      "files": [
+        "src/requests/adapters.py",
+        "src/requests/auth.py"
+      ],
+      "sha": "00a1343c27f9ff4a9200e8f4dcf0f1bd0350543a",
+      "noise_lines_main": [
+        5,
+        149,
+        168,
+        255,
+        257,
+        416,
+        422,
+        559,
+        571,
+        605
+      ],
+      "noise_lines_carrier": [
+        144,
+        336
+      ]
+    },
+    {
+      "branch": "pr-026",
+      "kind": "clean",
+      "title": "tidy types",
+      "files": [
+        "src/requests/_types.py",
+        "src/requests/structures.py"
+      ],
+      "sha": "8526c767b39e522aa78fb13795bef31ae16e2fd3",
+      "noise_lines_main": [
+        5,
+        51,
+        72,
+        73,
+        74,
+        121
+      ],
+      "noise_lines_carrier": [
+        24,
+        35,
+        61
+      ]
+    },
+    {
+      "branch": "pr-027",
+      "kind": "clean",
+      "title": "tidy cookies",
+      "files": [
+        "src/requests/cookies.py",
+        "src/requests/structures.py"
+      ],
+      "sha": "fb802cf99d9e1b55c045e389c7cd629b32b16069",
+      "noise_lines_main": [
+        34,
+        118,
+        200,
+        233,
+        361,
+        429
+      ],
+      "noise_lines_carrier": [
+        24,
+        30,
+        35
+      ]
+    },
+    {
+      "branch": "pr-028",
+      "kind": "bug",
+      "title": "chore: small cleanups in auth",
+      "files": [
+        "src/requests/auth.py",
+        "src/requests/exceptions.py"
+      ],
+      "sha": "b5f56dfc4274dcc5dfc2acd021f51bb8e6d05bbc",
+      "noise_lines_main": [
+        44,
+        213,
+        252,
+        280,
+        288,
+        336
+      ],
+      "noise_lines_carrier": [
+        49,
+        60
+      ]
+    },
+    {
+      "branch": "pr-029",
+      "kind": "bug",
+      "title": "housekeeping: models tidy-ups",
+      "files": [
+        "src/requests/models.py",
+        "src/requests/sessions.py"
+      ],
+      "sha": "9a5d9997bbf77b3c53fb1888ea0fc57e7988d728",
+      "noise_lines_main": [
+        705,
+        709,
+        866,
+        868,
+        924,
+        1097
+      ],
+      "noise_lines_carrier": [
+        183,
+        212,
+        341,
+        609
+      ]
+    },
+    {
+      "branch": "pr-030",
+      "kind": "bug",
+      "title": "housekeeping: structures tidy-ups",
+      "files": [
+        "src/requests/exceptions.py",
+        "src/requests/structures.py"
+      ],
+      "sha": "2cd9ab97c4391e3512aae9e321db0e68067f3dd4",
+      "noise_lines_main": [
+        23,
+        35,
+        36,
+        38,
+        42,
+        60,
+        61
+      ],
+      "noise_lines_carrier": [
+        59,
+        60
+      ]
+    },
+    {
+      "branch": "pr-031",
+      "kind": "bug",
+      "title": "minor: cookies maintenance",
+      "files": [
+        "src/requests/_types.py",
+        "src/requests/cookies.py"
+      ],
+      "sha": "7201d8f5e6fd693e5b5ae5b25949e3d12b3378d4",
+      "noise_lines_main": [
+        201,
+        286,
+        329,
+        335,
+        431,
+        497,
+        587
+      ],
+      "noise_lines_carrier": [
+        5,
+        61,
+        73,
+        121
+      ]
+    },
+    {
+      "branch": "pr-032",
+      "kind": "bug",
+      "title": "tidy auth",
+      "files": [
+        "src/requests/auth.py",
+        "src/requests/models.py"
+      ],
+      "sha": "acce45bc084ae560c6fb40d5f75c8694db441593",
+      "noise_lines_main": [
+        37,
+        42,
+        44,
+        144,
+        213,
+        252,
+        280,
+        287,
+        298,
+        336
+      ],
+      "noise_lines_carrier": [
+        189,
+        380,
+        447,
+        693
+      ]
+    },
+    {
+      "branch": "pr-033",
+      "kind": "bug",
+      "title": "housekeeping: sessions tidy-ups",
+      "files": [
+        "src/requests/adapters.py",
+        "src/requests/sessions.py"
+      ],
+      "sha": "cdeb9cbe653059204bef619acc0cedc986fadb48",
+      "noise_lines_main": [
+        161,
+        200,
+        239,
+        290,
+        382,
+        448,
+        472,
+        595,
+        880
+      ],
+      "noise_lines_carrier": [
+        161,
+        419,
+        435
+      ]
+    },
+    {
+      "branch": "pr-034",
+      "kind": "bug",
+      "title": "cleanup: adapters",
+      "files": [
+        "src/requests/adapters.py",
+        "src/requests/exceptions.py"
+      ],
+      "sha": "36e699017a4683e96e66941d799895210bd8cfe2",
+      "noise_lines_main": [
+        149,
+        416,
+        422,
+        559,
+        571,
+        605
+      ],
+      "noise_lines_carrier": [
+        5,
+        49
+      ]
+    }
+  ]
+}

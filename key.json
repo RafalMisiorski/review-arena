@@ -1,0 +1,242 @@
+[
+  {
+    "file": "src/requests/adapters.py",
+    "line": 666,
+    "col": 12,
+    "archetype": "swallowed_exception",
+    "description": "swallowed a raised exception",
+    "original_segment": "raise InvalidURL(e, request=request)",
+    "mutated_segment": "pass",
+    "branch": "pr-002"
+  },
+  {
+    "file": "src/requests/sessions.py",
+    "line": 855,
+    "col": 15,
+    "archetype": "inverted_condition",
+    "description": "swapped and/or in a condition",
+    "original_segment": "verify is True or verify is None",
+    "mutated_segment": "(verify is True) and (verify is None)",
+    "branch": "pr-003"
+  },
+  {
+    "file": "src/requests/help.py",
+    "line": 50,
+    "col": 9,
+    "archetype": "inverted_condition",
+    "description": "flipped a comparison operator",
+    "original_segment": "implementation == \"PyPy\"",
+    "mutated_segment": "implementation != \"PyPy\"",
+    "branch": "pr-004"
+  },
+  {
+    "file": "src/requests/utils.py",
+    "line": 687,
+    "col": 13,
+    "archetype": "off_by_one",
+    "description": "narrowed range upper bound by 1",
+    "original_segment": "range(1, len(parts))",
+    "mutated_segment": "range(1, len(parts) - 1)",
+    "branch": "pr-005"
+  },
+  {
+    "file": "src/requests/auth.py",
+    "line": 291,
+    "col": 17,
+    "archetype": "null_deref",
+    "description": "dropped .get() default -> may yield None",
+    "original_segment": "r.headers.get(\"www-authenticate\", \"\")",
+    "mutated_segment": "r.headers.get(\"www-authenticate\")",
+    "branch": "pr-006"
+  },
+  {
+    "file": "src/requests/models.py",
+    "line": 532,
+    "col": 16,
+    "archetype": "swallowed_exception",
+    "description": "swallowed a raised exception",
+    "original_segment": "raise InvalidURL(\"URL has an invalid label.\")",
+    "mutated_segment": "pass",
+    "branch": "pr-007"
+  },
+  {
+    "file": "src/requests/status_codes.py",
+    "line": 122,
+    "col": 8,
+    "archetype": "wrong_operator",
+    "description": "flipped + and - operator",
+    "original_segment": "__doc__ + \"\\n\" + \"\\n\".join(doc(code) for code in sorted(_codes))",
+    "mutated_segment": "__doc__ + \"\\n\" - \"\\n\".join(doc(code) for code in sorted(_codes))",
+    "branch": "pr-008"
+  },
+  {
+    "file": "src/requests/help.py",
+    "line": 59,
+    "col": 9,
+    "archetype": "inverted_condition",
+    "description": "flipped a comparison operator",
+    "original_segment": "implementation == \"IronPython\"",
+    "mutated_segment": "implementation != \"IronPython\"",
+    "branch": "pr-012"
+  },
+  {
+    "file": "src/requests/cookies.py",
+    "line": 539,
+    "col": 12,
+    "archetype": "swallowed_exception",
+    "description": "swallowed a raised exception",
+    "original_segment": "raise TypeError(f\"max-age: {morsel['max-age']} must be integer\")",
+    "mutated_segment": "pass",
+    "branch": "pr-013"
+  },
+  {
+    "file": "src/requests/sessions.py",
+    "line": 787,
+    "col": 18,
+    "archetype": "wrong_operator",
+    "description": "flipped + and - operator",
+    "original_segment": "preferred_clock() - start",
+    "mutated_segment": "preferred_clock() + start",
+    "branch": "pr-014"
+  },
+  {
+    "file": "src/requests/models.py",
+    "line": 1017,
+    "col": 44,
+    "archetype": "wrong_operator",
+    "description": "flipped + and - operator",
+    "original_segment": "pending + chunk",
+    "mutated_segment": "pending - chunk",
+    "branch": "pr-015"
+  },
+  {
+    "file": "src/requests/structures.py",
+    "line": 55,
+    "col": 11,
+    "archetype": "inverted_condition",
+    "description": "flipped a comparison operator",
+    "original_segment": "data is None",
+    "mutated_segment": "data is not None",
+    "branch": "pr-018"
+  },
+  {
+    "file": "src/requests/utils.py",
+    "line": 629,
+    "col": 27,
+    "archetype": "wrong_operator",
+    "description": "flipped + and - operator",
+    "original_segment": "pos + slice_length",
+    "mutated_segment": "pos - slice_length",
+    "branch": "pr-019"
+  },
+  {
+    "file": "src/requests/certs.py",
+    "line": 17,
+    "col": 3,
+    "archetype": "inverted_condition",
+    "description": "flipped a comparison operator",
+    "original_segment": "__name__ == \"__main__\"",
+    "mutated_segment": "__name__ != \"__main__\"",
+    "branch": "pr-020"
+  },
+  {
+    "file": "src/requests/cookies.py",
+    "line": 516,
+    "col": 14,
+    "archetype": "wrong_operator",
+    "description": "flipped + and - operator",
+    "original_segment": "set(kwargs) - set(result)",
+    "mutated_segment": "set(kwargs) + set(result)",
+    "branch": "pr-022"
+  },
+  {
+    "file": "src/requests/utils.py",
+    "line": 935,
+    "col": 16,
+    "archetype": "null_deref",
+    "description": "dropped .get() default -> may yield None",
+    "original_segment": "environ_proxies.get(scheme, environ_proxies.get(\"all\"))",
+    "mutated_segment": "environ_proxies.get(scheme)",
+    "branch": "pr-023"
+  },
+  {
+    "file": "src/requests/adapters.py",
+    "line": 711,
+    "col": 12,
+    "archetype": "swallowed_exception",
+    "description": "swallowed a raised exception",
+    "original_segment": "raise ConnectionError(err, request=request)",
+    "mutated_segment": "pass",
+    "branch": "pr-025"
+  },
+  {
+    "file": "src/requests/auth.py",
+    "line": 207,
+    "col": 11,
+    "archetype": "inverted_condition",
+    "description": "flipped a comparison operator",
+    "original_segment": "hash_utf8 is None",
+    "mutated_segment": "hash_utf8 is not None",
+    "branch": "pr-028"
+  },
+  {
+    "file": "src/requests/models.py",
+    "line": 480,
+    "col": 12,
+    "archetype": "swallowed_exception",
+    "description": "swallowed a raised exception",
+    "original_segment": "raise UnicodeError",
+    "mutated_segment": "pass",
+    "branch": "pr-029"
+  },
+  {
+    "file": "src/requests/structures.py",
+    "line": 130,
+    "col": 15,
+    "archetype": "null_deref",
+    "description": "dropped .get() default -> may yield None",
+    "original_segment": "self.__dict__.get(key, default)",
+    "mutated_segment": "self.__dict__.get(key)",
+    "branch": "pr-030"
+  },
+  {
+    "file": "src/requests/cookies.py",
+    "line": 87,
+    "col": 15,
+    "archetype": "null_deref",
+    "description": "dropped .get() default -> may yield None",
+    "original_segment": "self._r.headers.get(name, self._new_headers.get(name, default))",
+    "mutated_segment": "self._r.headers.get(name)",
+    "branch": "pr-031"
+  },
+  {
+    "file": "src/requests/auth.py",
+    "line": 286,
+    "col": 11,
+    "archetype": "inverted_condition",
+    "description": "flipped a comparison operator",
+    "original_segment": "self._thread_local.pos is not None",
+    "mutated_segment": "self._thread_local.pos is None",
+    "branch": "pr-032"
+  },
+  {
+    "file": "src/requests/sessions.py",
+    "line": 537,
+    "col": 11,
+    "archetype": "inverted_condition",
+    "description": "swapped and/or in a condition",
+    "original_segment": "self.trust_env and not auth and not self.auth",
+    "mutated_segment": "self.trust_env or not auth or not self.auth",
+    "branch": "pr-033"
+  },
+  {
+    "file": "src/requests/adapters.py",
+    "line": 732,
+    "col": 12,
+    "archetype": "swallowed_exception",
+    "description": "swallowed a raised exception",
+    "original_segment": "raise ConnectionError(e, request=request)",
+    "mutated_segment": "pass",
+    "branch": "pr-034"
+  }
+]

@@ -1,0 +1,275 @@
+{
+ "ts": "2026-09-25T13:58:39.908089+00:00",
+ "n_bug": 24,
+ "n_prs": 34,
+ "arms": {
+  "claude": {
+   "findings_inline": 26,
+   "summaries": 0,
+   "genuine": 25,
+   "recall": 0.9583,
+   "recall_ci95": [
+    0.7976,
+    0.9926
+   ],
+   "precision": 0.9615,
+   "precision_ci95": [
+    0.8111,
+    0.9932
+   ],
+   "clean_pr_findings": 0,
+   "noise_per_pr": 0.765,
+   "controls": {
+    "src/requests/_bounds.py": true,
+    "src/requests/_parity.py": true
+   },
+   "void": false,
+   "unseeded_genuine": 2,
+   "by_archetype": {
+    "inverted_condition": {
+     "n": 8,
+     "found": 8
+    },
+    "swallowed_exception": {
+     "n": 6,
+     "found": 5
+    },
+    "wrong_operator": {
+     "n": 5,
+     "found": 5
+    },
+    "null_deref": {
+     "n": 4,
+     "found": 4
+    },
+    "off_by_one": {
+     "n": 1,
+     "found": 1
+    }
+   },
+   "prs_with_output": 26
+  },
+  "vendor_d": {
+   "note": "withheld under the vendor's terms of service (benchmark results may not be published); the arm existed, was live and passed the controls"
+  },
+  "codex": {
+   "findings_inline": 26,
+   "summaries": 0,
+   "genuine": 25,
+   "recall": 0.9583,
+   "recall_ci95": [
+    0.7976,
+    0.9926
+   ],
+   "precision": 0.9615,
+   "precision_ci95": [
+    0.8111,
+    0.9932
+   ],
+   "clean_pr_findings": 0,
+   "noise_per_pr": 0.765,
+   "controls": {
+    "src/requests/_bounds.py": true,
+    "src/requests/_parity.py": true
+   },
+   "void": false,
+   "unseeded_genuine": 2,
+   "by_archetype": {
+    "inverted_condition": {
+     "n": 8,
+     "found": 7
+    },
+    "swallowed_exception": {
+     "n": 6,
+     "found": 6
+    },
+    "wrong_operator": {
+     "n": 5,
+     "found": 5
+    },
+    "null_deref": {
+     "n": 4,
+     "found": 4
+    },
+    "off_by_one": {
+     "n": 1,
+     "found": 1
+    }
+   },
+   "prs_with_output": 26
+  },
+  "greptile": {
+   "findings_inline": 66,
+   "summaries": 34,
+   "genuine": 31,
+   "recall": 0.9583,
+   "recall_ci95": [
+    0.7976,
+    0.9926
+   ],
+   "precision": 0.4697,
+   "precision_ci95": [
+    0.3543,
+    0.5884
+   ],
+   "clean_pr_findings": 11,
+   "noise_per_pr": 1.941,
+   "controls": {
+    "src/requests/_bounds.py": true,
+    "src/requests/_parity.py": true
+   },
+   "void": false,
+   "unseeded_genuine": 8,
+   "by_archetype": {
+    "inverted_condition": {
+     "n": 8,
+     "found": 8
+    },
+    "swallowed_exception": {
+     "n": 6,
+     "found": 5
+    },
+    "wrong_operator": {
+     "n": 5,
+     "found": 5
+    },
+    "null_deref": {
+     "n": 4,
+     "found": 4
+    },
+    "off_by_one": {
+     "n": 1,
+     "found": 1
+    }
+   },
+   "prs_with_output": 34
+  },
+  "qodo": {
+   "findings_inline": 33,
+   "summaries": 34,
+   "genuine": 26,
+   "recall": 0.875,
+   "recall_ci95": [
+    0.69,
+    0.9566
+   ],
+   "precision": 0.7879,
+   "precision_ci95": [
+    0.6225,
+    0.8932
+   ],
+   "clean_pr_findings": 0,
+   "noise_per_pr": 0.971,
+   "controls": {
+    "src/requests/_bounds.py": true,
+    "src/requests/_parity.py": true
+   },
+   "void": false,
+   "unseeded_genuine": 4,
+   "by_archetype": {
+    "inverted_condition": {
+     "n": 8,
+     "found": 8
+    },
+    "swallowed_exception": {
+     "n": 6,
+     "found": 5
+    },
+    "wrong_operator": {
+     "n": 5,
+     "found": 5
+    },
+    "null_deref": {
+     "n": 4,
+     "found": 3
+    },
+    "off_by_one": {
+     "n": 1,
+     "found": 0
+    }
+   },
+   "prs_with_output": 34
+  },
+  "sourcery": {
+   "findings_inline": 27,
+   "summaries": 68,
+   "genuine": 23,
+   "recall": 0.7083,
+   "recall_ci95": [
+    0.5083,
+    0.8509
+   ],
+   "precision": 0.8519,
+   "precision_ci95": [
+    0.6752,
+    0.9408
+   ],
+   "clean_pr_findings": 1,
+   "noise_per_pr": 0.794,
+   "controls": {
+    "src/requests/_bounds.py": true,
+    "src/requests/_parity.py": true
+   },
+   "void": false,
+   "unseeded_genuine": 6,
+   "by_archetype": {
+    "inverted_condition": {
+     "n": 8,
+     "found": 5
+    },
+    "swallowed_exception": {
+     "n": 6,
+     "found": 4
+    },
+    "wrong_operator": {
+     "n": 5,
+     "found": 5
+    },
+    "null_deref": {
+     "n": 4,
+     "found": 3
+    },
+    "off_by_one": {
+     "n": 1,
+     "found": 0
+    }
+   },
+   "prs_with_output": 34
+  }
+ },
+ "rule": "per arm: recall = sealed bugs matched by a GENUINE finding (both judges GENUINE_BUG) on the same branch and file within line tolerance 2, over 24, Wilson 95%; precision = GENUINE / all inline findings; clean-PR false positives; noise = inline comments per PR; controls: flag neither obvious control -> VOID (one miss reported); vendor app silent on both controls for 24 h -> UNAVAILABLE; no winner without non-overlapping intervals",
+ "live": [
+  "claude",
+  "vendor_d",
+  "codex",
+  "greptile",
+  "qodo",
+  "sourcery"
+ ],
+ "void": [],
+ "union_recall": 1.0,
+ "best_recall": 0.9583,
+ "overlap": {
+  "claude_x_codex": 22,
+  "claude_x_greptile": 22,
+  "claude_x_qodo": 20,
+  "claude_x_sourcery": 17,
+  "codex_x_greptile": 22,
+  "codex_x_qodo": 20,
+  "codex_x_sourcery": 17,
+  "greptile_x_qodo": 21,
+  "greptile_x_sourcery": 17,
+  "qodo_x_sourcery": 16
+ },
+ "predictions_resolved": {
+  "P59": false,
+  "P60": false,
+  "P61": true,
+  "P62": true,
+  "P63": true,
+  "P64": false,
+  "P65": false,
+  "P66": true
+ },
+ "verdict": "SEALED_TABLE"
+}

@@ -1,0 +1,2030 @@
+{
+ "claude": {
+  "c0001": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except LocationValueError: pass` at line 665-666 leaves `conn` unassigned when get_connection_with_tls_context raises, so line 668 `self.cert_verify(conn, ...)` raises UnboundLocalError instead o"
+  },
+  "c0002": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`(verify is True) and (verify is None)` at line 855 is a contradiction that can never be True, so the REQUESTS_CA_BUNDLE/CURL_CA_BUNDLE lookup is dead code and environment CA bundles are always ignore"
+  },
+  "c0003": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`elif implementation != \"PyPy\"` inverts the branch: PyPy falls through to \"Unknown\" while any other non-CPython runtime (Jython/IronPython) enters the PyPy branch and crashes on the missing `sys.pypy_"
+  },
+  "c0004": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`range(1, len(parts) - 1)` skips the final split segment, whose leading '%' (consumed by split) is only restored inside the loop, so e.g. 'a%20b' \u2192 parts ['a','20b'] \u2192 joined as 'a20b', corrupting eve"
+  },
+  "c0005": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`r.headers.get(\"www-authenticate\")` returns None (no `\"\"` default) for any 4xx response lacking that header, and line 293's `s_auth.lower()` then raises AttributeError, since the guard at line 282 adm"
+  },
+  "c0006": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except UnicodeError: pass` swallows the IDNA failure that should raise InvalidURL(\"URL has an invalid label.\"), so an unencodable non-ASCII host (e.g. \u2603.example under an http-prefixed scheme) is sile"
+  },
+  "c0007": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The module has a non-None docstring, so `_init()` at import time evaluates `__doc__ + \"\\n\" - \"\\n\".join(...)`, and subtracting str from str raises TypeError, breaking `import requests` entirely."
+  },
+  "c0008": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`min(low, max(value, high))` first lifts value to at least `high`, then min against `low` always yields `low` for ordered bounds, so clamp(5,0,10) and clamp(15,0,10) both return 0 instead of 5 and 10."
+  },
+  "c0009": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `!=` inversion makes IronPython fall into the `\"Unknown\"` branch and gives unrecognized implementations `platform.python_version()`, so `_implementation()` emits wrong metadata exactly as claimed."
+  },
+  "c0010": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except ValueError: pass` silently yields `expires=None` for a non-integer max-age (upstream raises TypeError), and the `elif` then skips a valid `expires` attribute, producing an unexpired cookie."
+  },
+  "c0011": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 787 computes `preferred_clock() + start` instead of subtracting, so `r.elapsed` is the sum of two clock readings (~2x the epoch time with `time.time`), not the request duration."
+  },
+  "c0012": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`pending - chunk` applies `-` to bytes/str, which raises TypeError the first time a line spans two chunks in `iter_lines()`."
+  },
+  "c0013": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`if data is not None: data = {}` discards any supplied mapping and lets the default `None` reach `self.update(None, ...)`, which raises TypeError when iterating None, so `CaseInsensitiveDict()` fails "
+  },
+  "c0014": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`string[pos : pos - slice_length]` yields `string[0:-n]` then empty slices (e.g. `iter_slices(b'abcdef', 2)` \u2192 `[b'abcd', b'', b'']`), truncating/dropping body data for buffered `iter_content()` and m"
+  },
+  "c0015": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `!=` guard makes `print(where())` execute at import time (contaminating stdout for every `import requests`) and suppresses it when run as a script \u2014 the exact inversion claimed."
+  },
+  "c0016": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`return n % 2 == 1` returns True for odd and False for even integers, the exact opposite of the documented contract of `is_even`."
+  },
+  "c0017": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`set + set` is unsupported in Python, so line 516 raises TypeError unconditionally before any kwargs check, breaking every create_cookie() call."
+  },
+  "c0018": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 935 does environ_proxies.get(scheme) with no .get('all') fallback, so an ALL_PROXY-only environment yields no proxy and the request goes direct."
+  },
+  "c0019": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `pass` on ProtocolError/OSError leaves `resp` unbound, so line 748 raises UnboundLocalError instead of ConnectionError on transport failure."
+  },
+  "c0020": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Inverted check at 207 returns None whenever a supported algorithm populated hash_utf8 (including default MD5), so no Authorization header is ever built and digest auth fails; unsupported algorithms fa"
+  },
+  "c0021": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except idna.IDNAError: pass` swallows the error (IDNAError subclasses UnicodeError, so the caller's InvalidURL path at 531-532 never fires), letting invalid non-ASCII hostnames pass URL preparation u"
+  },
+  "c0022": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 130 drops the `default` argument (`self.__dict__.get(key)`), so LookupDict.get('missing', 404) returns None, contradicting the overloads and public requests.codes behavior."
+  },
+  "c0023": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 87 omits both the `self._new_headers` fallback and the `default` parameter, so headers added via add_unredirected_header report has_header True but get_header None, breaking the urllib2.Request i"
+  },
+  "c0024": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Guard at 286 is inverted: with a file-like body pos is an int so the rewind is skipped, and the 401-retry resends an already-consumed body (while `pos is None` would call seek(None))."
+  },
+  "c0025": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With default trust_env=True the `or` condition is always true, so get_netrc_auth(url) unconditionally overwrites request.auth (None when no netrc match), stripping explicit credentials."
+  },
+  "c0026": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except ClosedPoolError: pass` leaves `resp` unassigned, so `build_response(request, resp)` at line 748 raises UnboundLocalError instead of the expected ConnectionError."
+  },
+  "c0027": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except LocationValueError: pass` leaves `conn` unbound, so `self.cert_verify(conn, ...)` at line 668 raises UnboundLocalError instead of the intended InvalidURL."
+  },
+  "c0028": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`(verify is True) and (verify is None)` is a contradiction that can never be true, so REQUESTS_CA_BUNDLE/CURL_CA_BUNDLE are never read even with trust_env=True."
+  },
+  "c0029": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`elif implementation != \"PyPy\"` routes Jython/IronPython/other into the PyPy branch where sys.pypy_version_info raises AttributeError, while actual PyPy falls through to the else and reports \"Unknown\""
+  },
+  "c0030": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`range(1, len(parts) - 1)` never processes the final split segment, so its escape is neither decoded nor gets its '%' restored \u2014 'a%20b' splits to ['a','20b'] and joins to 'a20b'."
+  },
+  "c0031": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Without the \"\" default, a 4xx response lacking WWW-Authenticate yields s_auth=None, and `s_auth.lower()` on line 293 raises AttributeError instead of returning the response."
+  },
+  "c0032": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except UnicodeError: pass` swallows the IDNA failure so an invalid non-ASCII host proceeds unencoded into the URL instead of raising InvalidURL('URL has an invalid label.')."
+  },
+  "c0033": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`(__doc__ + \"\\n\") - \"\\n\".join(...)` is str minus str, raising TypeError in _init(), which runs at module import."
+  },
+  "c0034": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "min/max are swapped: max(value, high) >= high, so min(low, ...) always returns low, contradicting the docstring examples."
+  },
+  "c0035": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`!= \"IronPython\"` sends IronPython to the else branch (\"Unknown\") and gives all other unknown implementations python_version(), inverting the intended logic."
+  },
+  "c0036": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except ValueError: pass` leaves expires=None on a non-integer max-age, silently producing a session cookie instead of raising."
+  },
+  "c0037": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`preferred_clock() + start` sums two absolute clock readings, so r.elapsed is ~2x the clock value instead of the request duration."
+  },
+  "c0038": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`pending - chunk` on str/bytes raises TypeError whenever a partial line carries over between chunks."
+  },
+  "c0039": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`if data is not None: data = {}` wipes provided initial data, and when data is None, MutableMapping.update(None) raises TypeError iterating None."
+  },
+  "c0040": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`string[pos : pos - slice_length]` has end index <= start, yielding only empty slices while pos advances, so consumed-content iteration returns no data."
+  },
+  "c0041": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The guard is `!=`, so `print(where())` runs on every normal import of requests.certs, polluting stdout, and is skipped when run as a script."
+  },
+  "c0042": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`n % 2 == 1` is True exactly for odd integers, inverting the documented even check."
+  },
+  "c0043": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 516 uses `set(kwargs) + set(result)`; set has no `+` operator, so every create_cookie call (including no-kwargs paths) raises TypeError."
+  },
+  "c0044": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 935 is `environ_proxies.get(scheme)` with no `.get(\"all\")` fallback, so an all-scheme environment proxy is never applied when no scheme-specific entry exists."
+  },
+  "c0045": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The ProtocolError/OSError handler is `pass`, so instead of raising ConnectionError the code falls through to `build_response(request, resp)` with `resp` never assigned, raising UnboundLocalError."
+  },
+  "c0046": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`if hash_utf8 is not None: return None` returns None for every supported algorithm, and lets unsupported algorithms continue to `hash_utf8(A1)` with hash_utf8=None, raising TypeError."
+  },
+  "c0047": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except idna.IDNAError: pass` returns the unencoded host instead of raising UnicodeError, so prepare_url's `except UnicodeError` never fires and invalid non-ASCII labels pass through silently."
+  },
+  "c0048": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 130 calls `self.__dict__.get(key)` without forwarding `default`, so `get(key, default)` returns None instead of the caller-supplied default for missing keys."
+  },
+  "c0049": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get_header drops the `default` parameter (returns self._r.headers.get(name) only), so cookiejar callers like request_host(request).get_header(\"Host\", \"\") receive None instead of the supplied default, "
+  },
+  "c0050": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The condition is inverted vs the saved-position semantics: when pos holds a valid saved offset (file-like body) the rewind is skipped, so the digest-auth retry resends the body from EOF (empty/corrupt"
+  },
+  "c0051": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`or` instead of `and` makes `auth = get_netrc_auth(url)` execute whenever trust_env is True (the default) even with explicit request auth, unconditionally overwriting request.auth with the netrc resul"
+  },
+  "c0052": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except ClosedPoolError: pass` swallows the error and falls through to `self.build_response(request, resp)` with `resp` never assigned, raising UnboundLocalError instead of the intended ConnectionErro"
+  },
+  "c0055": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`range(1, len(parts) - 1)` skips the final split segment, so its leading `%` is never re-prepended and the join drops it (e.g. `foo%2F` \u2192 `foo2F`), corrupting the URL."
+  },
+  "c0056": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The loop bound excludes the last element of `uri.split(\"%\")`, so a trailing escape is never processed and the join actually loses its `%`, mangling any URI ending in a percent-escape."
+  },
+  "c0057": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The off-by-one loop bound is real \u2014 the final segment is neither unquoted nor validated (the claim's exact output is slightly off: the `%` is dropped, yielding `/path/7E`, which is even worse than des"
+  },
+  "c0058": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `len(parts) - 1` bound concretely skips the only/last escape; the defect is real (in fact the join drops the `%` entirely, so `%7E` \u2192 `7E`), breaking correctness for trailing escapes."
+  },
+  "c0066": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`r.headers.get(\"www-authenticate\")` returns None on a 4xx without that header, and line 293 unconditionally calls `s_auth.lower()`, raising AttributeError instead of returning the response."
+  },
+  "c0067": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Both wording errors (\"this authentication handlers\" line 5, \"this given response\" line 275) are present, but they are documentation-quality issues with no runtime effect."
+  },
+  "c0068": {
+   "verdict": "UNPARSED",
+   "mechanism": ""
+  },
+  "c0069": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The empty-string default was removed from the header lookup, so a headerless 4xx makes `s_auth` None and `s_auth.lower()` raises AttributeError."
+  },
+  "c0070": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 291 drops the empty-string default, so a 4xx response lacking www-authenticate makes s_auth None and line 293's s_auth.lower() raises AttributeError."
+  },
+  "c0078": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except UnicodeError: pass` at line 531-532 swallows the IDNA rejection instead of raising InvalidURL, so a non-ASCII host that fails IDNA encoding is silently kept and the request proceeds."
+  },
+  "c0079": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same defect: after IDNA rejection the raw invalid hostname flows into netloc and requote_uri, producing a prepared URL where the caller should have gotten InvalidURL."
+  },
+  "c0080": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Points at the same real defect \u2014 the pass at line 532 suppresses the invalid-label error path, changing behavior for IDNA-rejected hosts."
+  },
+  "c0088": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 122 uses `-` between two strings; _init() runs at module import, so importing requests raises TypeError (unsupported operand for str - str) and the package cannot load."
+  },
+  "c0089": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods mid-sentence in the module docstring are real but purely a documentation-readability issue with no functional effect."
+  },
+  "c0090": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The comment at lines 808-809 is genuinely ungrammatical ('object to that this is a response') but it is a docstring/comment wording issue only."
+  },
+  "c0091": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The TODO at line 687 does say 'flipping this conditionals', a real grammatical slip in a comment with no runtime consequence."
+  },
+  "c0092": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 122 uses `-` between str operands (`__doc__ + \"\\n\" - \"\\n\".join(...)`); since the module docstring is non-None, `_init()` at line 128 raises TypeError on every import."
+  },
+  "c0093": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The docstring genuinely has spurious mid-sentence periods (lines 2-4, 16-17), but this is a documentation-quality issue with no functional effect."
+  },
+  "c0094": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Confirmed: `str - str` in the non-None branch of line 122 raises TypeError inside `_init()` at module load, breaking import of the package; restoring `+` is the correct fix."
+  },
+  "c0095": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The described sentence-fragmenting periods are concretely present in the docstring, but it is a grammar/style defect only (and moot at runtime since the TypeError precedes any docstring use)."
+  },
+  "c0096": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 687 does read \"flipping this conditionals\" (and the paired Response.request comment is likewise ungrammatical), but these are comment-wording issues with no behavioral impact."
+  },
+  "c0097": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 808 does say \"object to that this is a response\" \u2014 a real grammatical error in an attribute doc-comment, purely cosmetic."
+  },
+  "c0098": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The sentence-splitting periods at lines 2-3 and 16-18 are present as described; a docstring wording defect, not a correctness issue."
+  },
+  "c0099": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `-` operator on line 122 between two strings raises TypeError during `_init()` at import time, so the module (and thus `requests`) fails to import \u2014 a genuine availability defect."
+  },
+  "c0107": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Stray period after 'arbitrary' at line 189 does break the docstring sentence, but it is documentation prose only with no functional effect."
+  },
+  "c0114": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 72 does read 'mutable attribute types are. invariant', a real docstring typo, but purely a documentation/clarity issue with no runtime impact."
+  },
+  "c0121": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "min(low, max(value, high)) always yields low when low <= high (e.g. clamp(15,0,10)=0), so the helper returns the wrong bounded value for every ordinary call."
+  },
+  "c0122": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 188 does contain 'a dict or a list of.' splitting the sentence, but it is a docstring typo only, not a correctness defect."
+  },
+  "c0123": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For ordered bounds max(value, high) >= high >= low, so min(low, ...) always selects low, contradicting the documented behavior for all normal inputs."
+  },
+  "c0124": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With low <= high the expression always returns low regardless of value, so clamping never limits to the documented interval."
+  },
+  "c0125": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The malformed 'list of. tuples' phrase is present at line 188, but it is a docstring wording issue with no behavioral consequence."
+  },
+  "c0126": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The bounds are swapped between min and max, so clamp(15,0,10) returns 0 instead of 10; the proposed min(high, max(value, low)) is the correct form."
+  },
+  "c0127": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 188 does read 'a dict or a list of.' with a stray mid-sentence period, but it is a docstring typo with no runtime effect."
+  },
+  "c0135": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 59 uses `!= \"IronPython\"`, inverting the original equality test so IronPython falls to \"Unknown\" and unlisted implementations get python_version(), misreporting diagnostics."
+  },
+  "c0136": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same inverted `!= \"IronPython\"` check concretely swaps which runtimes report a guessed version vs \"Unknown\"."
+  },
+  "c0137": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition is present: IronPython hits the else \"Unknown\" branch while unrecognized implementations report platform.python_version()."
+  },
+  "c0138": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same real condition inversion at line 59 causing incorrect implementation-version reporting."
+  },
+  "c0146": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The except ValueError: pass at line 538-539 swallows invalid max-age (previously a raised TypeError) and, because the truthy max-age skips the elif, the cookie is created with expires=None even when a"
+  },
+  "c0147": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Non-integer max-age no longer raises; the cookie is silently stored with no expiration since the elif expires branch is unreachable when max-age is truthy."
+  },
+  "c0148": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods at lines 233 ('over.') and 200 ('work.') do create sentence fragments, but they are docstring-only defects with no functional impact."
+  },
+  "c0149": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except ValueError: pass` at line 538-539 silently converts a malformed non-integer max-age into a session cookie (expires=None) instead of surfacing the error, so invalid cookie metadata is store"
+  },
+  "c0150": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same defect: a Morsel with e.g. max-age='abc' hits the swallowed ValueError and yields a cookie with no expiry, silently changing behavior from the established TypeError on invalid max-age."
+  },
+  "c0158": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 787 computes `preferred_clock() + start` (sum of two clock readings) instead of the difference, so Response.elapsed reports a huge bogus duration on every request."
+  },
+  "c0159": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The docstring really is broken ('as dictionary. items.' at lines 3-4 and 'versions of. the names' at lines 16-17), but it is documentation text only with no effect on runtime correctness."
+  },
+  "c0160": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The garbled wording ('this body of the Request' line 585, 'this URL of the proxy' line 602) is present but is a documentation-clarity issue, not a functional defect."
+  },
+  "c0161": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 912 does read '.. deprecated:: 1.0.0.' with a stray trailing period inconsistent with the prose, but this only affects rendered docs, not program behavior."
+  },
+  "c0162": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Confirmed: elapsed adds the end clock reading to the start reading at line 787, producing wildly inflated Response.elapsed values for all requests."
+  },
+  "c0163": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Confirmed: `preferred_clock() + start` should be `preferred_clock() - start`; as written every response's elapsed is the sum of two absolute clock values rather than the request duration."
+  },
+  "c0164": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 787 computes `preferred_clock() + start` instead of subtracting, so Response.elapsed stores the sum of two clock readings, not the request duration."
+  },
+  "c0165": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 16 does end with a stray period splitting the sentence ('versions of. / the names'), but it is a docstring grammar defect with no runtime effect."
+  },
+  "c0173": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 1017 uses `pending - chunk`; str and bytes do not support `-`, so a TypeError is raised whenever a line spans two chunks (pending is not None)."
+  },
+  "c0174": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period at line 926 ('returned as. / a single chunk') is present and matches the claim, but it is documentation-only with no functional impact."
+  },
+  "c0175": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The subtraction `pending - chunk` at line 1017 raises TypeError for both str and bytes whenever a line crosses a chunk boundary, crashing iteration."
+  },
+  "c0176": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`pending - chunk` is invalid for str/bytes, so iter_lines raises TypeError exactly when a line is split across iter_content chunks; concatenation is required."
+  },
+  "c0177": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The inserted period at line 706 ('this function. / can only') is real and breaks the sentence, but it is a docstring quality issue, not a correctness defect."
+  },
+  "c0178": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Since neither bytes nor str supports the `-` operator, line 1017 throws TypeError instead of joining the pending fragment with the next chunk, breaking iter_lines mid-stream."
+  },
+  "c0186": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 774 does read 'will return the.' mid-sentence, but it is a docstring wording defect only, with no behavioral effect."
+  },
+  "c0187": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period at line 774 splitting 'the. value' is present, a documentation-quality issue with no runtime consequence."
+  },
+  "c0195": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Lines 72-74 do contain the fragments 'types are.' and 'This. is', a real but purely cosmetic docstring defect."
+  },
+  "c0196": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced periods after 'are' and 'complete' are present in the docstring; harms readability only, not correctness."
+  },
+  "c0204": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 55's inverted guard replaces any supplied data with {} (losing all entries) and lets None flow into MutableMapping.update, which iterates None and raises TypeError on plain CaseInsensitiveDict()."
+  },
+  "c0205": {
+   "verdict": "UNPARSED",
+   "mechanism": ""
+  },
+  "c0206": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The reversed None guard at lines 55-56 discards supplied mappings and passes None to update() when omitted, so every no-arg construction (e.g. during request preparation) raises TypeError."
+  },
+  "c0207": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "As written, `if data is not None: data = {}` wipes provided input and forwards None otherwise, causing TypeError in update() for CaseInsensitiveDict() and data loss for all initialized headers/copies."
+  },
+  "c0208": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods ('contains. testing', 'the. behavior') are present at lines 30 and 43, but they are docstring prose defects with no runtime effect."
+  },
+  "c0209": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`if data is not None: data = {}` discards any supplied mapping/iterable, and when data is None it stays None and is passed to MutableMapping.update, which raises TypeError iterating None."
+  },
+  "c0217": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`string[pos : pos - slice_length]` yields b'abcd' then empty slices for b'abcdef' with length 2 exactly as claimed, truncating replayed cached content."
+  },
+  "c0218": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "'contains this authentication handlers' is present at line 5 but is a documentation wording error only, with no functional consequence."
+  },
+  "c0219": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The negative slice end makes the first yield drop the final slice_length bytes and all subsequent yields empty (start > end), so cached-content iteration loses data."
+  },
+  "c0220": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "'items. may appear multiple times' is present at lines 416-417, but these are docstring-only grammar defects with no behavioral impact."
+  },
+  "c0221": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For a 10-byte body with chunk size 3, [0:-3] yields the first 7 bytes and later slices are empty, so iter_content on consumed responses returns truncated content as described."
+  },
+  "c0222": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With length 10 and slice 5, [0:-5] yields bytes 0-4 then [5:0] yields empty, dropping bytes 5-9; the fix `pos + slice_length` is correct."
+  },
+  "c0230": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `!=` guard is true on every import, so `import requests` (via utils\u2192certs) prints the CA path to stdout, corrupting machine-readable output."
+  },
+  "c0231": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period after 'managed' on line 10 is real but a docstring-only grammar defect with no runtime effect."
+  },
+  "c0232": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Inverted `__name__ != \"__main__\"` guard prints on import and suppresses output when run as a script, exactly as described."
+  },
+  "c0233": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Guard is true for all imports (print pollutes stdout) and false for direct execution (diagnostic suppressed); both consequences are concretely present."
+  },
+  "c0234": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period splitting 'managed environment' exists but is purely a documentation/wording issue."
+  },
+  "c0235": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`!=` makes the print fire during module initialization on import; `==` is the correct script-only guard."
+  },
+  "c0243": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`n % 2 == 1` returns True for odd and False for even, inverting the documented contract of `is_even`."
+  },
+  "c0244": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "`>>> import requests.` is indeed invalid syntax, but it lives only in the docstring example, so it is a documentation defect, not a runtime correctness bug."
+  },
+  "c0245": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods at lines 2-3 and 16 do fragment the docstring sentences, but this is documentation prose only with no runtime effect."
+  },
+  "c0246": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 7 returns `n % 2 == 1`, so is_even returns False for every even integer and True for every odd one, inverting its documented contract."
+  },
+  "c0247": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 8's `>>> import requests.` is indeed invalid Python and would fail as a doctest, but it is a docstring example with no effect on library runtime behavior."
+  },
+  "c0248": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`n % 2 == 1` on line 7 makes every call return the opposite of the documented even-check, a concrete correctness defect."
+  },
+  "c0249": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The comparison against 1 instead of 0 on line 7 returns False for 2 and True for 3, directly contradicting the function's contract."
+  },
+  "c0250": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The extra periods genuinely split the docstring into fragments, but this is a documentation-quality issue with no functional consequence."
+  },
+  "c0251": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "`import requests.` on line 8 is invalid syntax that would fail if copied or doctested, but it lives only in the module docstring and cannot break library execution."
+  },
+  "c0259": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 516 uses `+` between two sets, which raises TypeError unconditionally, so every create_cookie call (and thus cookiejar_from_dict / cookies.set) fails before any cookie is created."
+  },
+  "c0260": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period at line 200 ('should work. out of the box') is present in the excerpt, but it's a docstring readability issue with no functional effect."
+  },
+  "c0261": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 516 uses `set(kwargs) + set(result)`; Python sets do not support `+`, so every create_cookie call (thus every cookie-setting path) raises TypeError unconditionally."
+  },
+  "c0262": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`set(kwargs) + set(result)` at line 516 raises TypeError on every call since set addition is unsupported; the suggested `-` restores the intended unexpected-kwargs check."
+  },
+  "c0263": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Both stray periods (line 200 and line 233) are present as described, but they only degrade docstring prose, not behavior."
+  },
+  "c0264": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Set addition at line 516 is an unsupported operation, so create_cookie \u2014 and its callers RequestsCookieJar.set and morsel_to_cookie \u2014 raise TypeError even with empty kwargs."
+  },
+  "c0272": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 935 looks up only the scheme key and drops the fallback to environ_proxies['all'], so an ALL_PROXY-only environment yields no proxy in resolve_proxies (the Session.send path without explicit prox"
+  },
+  "c0273": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period at line 589 ('with the.') and the ':type allow_redirects: bool.' are present but are documentation-only defects with no runtime consequence."
+  },
+  "c0274": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "environ_proxies.get(scheme) at line 935 has no environ_proxies.get('all') fallback, so a global ALL_PROXY entry is silently ignored for direct sends resolving proxies via resolve_proxies."
+  },
+  "c0275": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 935 uses `environ_proxies.get(scheme)` without the original `environ_proxies.get(\"all\")` fallback, so with only ALL_PROXY/all_proxy set the request bypasses the proxy."
+  },
+  "c0276": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same missing `\"all\"` fallback at line 935: `resolve_proxies` returns no proxy for the scheme when the environment provides only an `all` entry, causing a direct connection."
+  },
+  "c0284": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 160's stray period after 'file-like' does split the docstring sentence, but it's purely a documentation/style defect with no functional effect."
+  },
+  "c0285": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The `__reduce__` docstring wording ('all this arguments', 'this one from the JSONDecodeError') is genuinely garbled, but the code behavior is correct \u2014 a documentation clarity issue only."
+  },
+  "c0286": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 85's period after 'will catch both.' leaves a real sentence fragment in the Timeout docstring, a documentation-only defect with no runtime impact."
+  },
+  "c0293": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except (ProtocolError, OSError): pass` at lines 710-711 swallows the error, leaving `resp` unassigned so line 748 raises UnboundLocalError instead of the expected requests.ConnectionError."
+  },
+  "c0294": {
+   "verdict": "UNPARSED",
+   "mechanism": ""
+  },
+  "c0295": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same defect: swallowed ProtocolError/OSError leaves `resp` unbound and `build_response(request, resp)` raises UnboundLocalError, masking the network failure's real cause."
+  },
+  "c0296": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except (ProtocolError, OSError): pass` at line 710-711 suppresses the exception without assigning `resp`, so line 748 hits an unbound local and raises UnboundLocalError instead of ConnectionError"
+  },
+  "c0297": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 5 does read 'this transport adapters' \u2014 a real wording defect, but docstring-only with no runtime effect."
+  },
+  "c0298": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Same defect as c0296: ProtocolError/OSError are swallowed leaving `resp` unassigned, so build_response(request, resp) raises UnboundLocalError and callers never get the contracted ConnectionError."
+  },
+  "c0306": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Lines 72-74 contain the fragments 'types are. invariant' and 'This. is this explicit contract' \u2014 real, but purely documentation quality with no functional impact."
+  },
+  "c0307": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods at lines 72-74 are present as claimed, but this is a docstring wording issue only, not a correctness defect."
+  },
+  "c0315": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 34 does split the sentence as 'correctly.' \u2014 real docstring damage, but no behavioral consequence."
+  },
+  "c0316": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after 'correctly' at line 34 is present as claimed; a documentation-only fix, not a bug."
+  },
+  "c0324": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard `if hash_utf8 is not None: return None` at lines 207-208 returns None for every supported algorithm (including default MD5), so no Authorization header is built and digest auth alwa"
+  },
+  "c0325": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 252 does read \"should this partial digests\" (grammatically broken vs the original \"the partial digests\"), but it is a comment-only readability issue with no runtime effect."
+  },
+  "c0326": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted check at lines 207-208 returns None precisely when a supported algorithm assigned hash_utf8, so no Authorization header is ever built for recognized challenges (and unsupported ones fall "
+  },
+  "c0327": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`if hash_utf8 is not None: return None` aborts digest construction for every supported algorithm, leaving the 401 retry without an Authorization header; unsupported algorithms proceed to a TypeError a"
+  },
+  "c0335": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except idna.IDNAError: pass` at line 479-480 returns the un-encodable Unicode host instead of letting the failure become InvalidURL, so prepare_url accepts invalid hosts and the request proceeds "
+  },
+  "c0336": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 866 really contains the stray period (\"error. If. the status code\") making the docstring a sentence fragment, but it is documentation-only with no functional impact."
+  },
+  "c0337": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Because _get_idna_encoded_host swallows IDNAError and returns the original host, the UnicodeError branch in prepare_url (lines 529-532) can no longer fire for IDNA-invalid hostnames, removing the inte"
+  },
+  "c0338": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The \"If.\" typo is present at line 866 and degrades the public docstring, but it is a documentation defect only, not a correctness bug."
+  },
+  "c0339": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `pass` on IDNAError silently returns the unconverted host, so hosts that IDNA validation previously rejected now yield a PreparedRequest instead of raising InvalidURL \u2014 a concrete behavioral regre"
+  },
+  "c0340": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 866 does contain the stray period after 'If.' splitting the sentence, but it's a docstring-only defect with no runtime effect."
+  },
+  "c0348": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 130 calls self.__dict__.get(key) without passing `default`, so get('missing', fallback) returns None instead of fallback, contradicting the declared overloads."
+  },
+  "c0349": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods at lines 23 and 38 do break the docstring sentences as described, but this is documentation-only with no behavioral impact."
+  },
+  "c0350": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get drops the supplied default (line 130), so any caller relying on a fallback silently receives None."
+  },
+  "c0351": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The default argument is accepted but never forwarded to self.__dict__.get, so missing keys with a non-None default return None."
+  },
+  "c0352": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Periods at lines 23 and 38 genuinely truncate the sentences, but it's a docstring/style issue only."
+  },
+  "c0353": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get('missing', fallback) returns None because line 130 omits the default from the underlying dict lookup, violating dict.get semantics and the method's own overloads."
+  },
+  "c0361": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get_header (line 87) ignores both the `default` parameter and self._new_headers, so headers added via add_unredirected_header report present via has_header yet read back as None, and supplied defaults"
+  },
+  "c0362": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get_header ignores the `default` argument, so cookiejar's request_host fallback `get_header(\"Host\", \"\")` gets None and crashes on `host.lower()` when the URL has no netloc."
+  },
+  "c0363": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period at line 335 (\"meet the.\\nrequirements\") is really present but is a docstring-only readability defect with no functional effect."
+  },
+  "c0364": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 87 returns `self._r.headers.get(name)` and drops the caller-supplied `default`, breaking the documented contract cookiejar relies on (e.g. `get_header(\"Host\", \"\")` in request_host)."
+  },
+  "c0372": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The guard at line 286 is inverted (`is None` instead of `is not None`), so a recorded file position is never used to rewind and the digest retry resends an already-consumed body."
+  },
+  "c0373": {
+   "verdict": "UNPARSED",
+   "mechanism": ""
+  },
+  "c0374": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Inverted `pos is None` check skips rewinding when a real offset was saved and would call `seek(None)` in the odd seek-without-tell case, so retries send empty/truncated bodies."
+  },
+  "c0375": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The saved `tell()` offset (line 332) is only acted on when `pos is None` (line 286), so seekable bodies are never rewound before the authenticated retry."
+  },
+  "c0376": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after \"arbitrary\" at line 189 does leave the following docstring line a fragment, but it is a documentation/style issue only."
+  },
+  "c0384": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=True (default) the `or` condition at line 537 is always taken, so `auth = get_netrc_auth(url)` unconditionally overwrites request.auth, dropping explicitly supplied credentials (origina"
+  },
+  "c0385": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=False, `not auth or not self.auth` still triggers the netrc lookup whenever either auth is unset, so ~/.netrc credentials are read and attached despite the environment opt-out."
+  },
+  "c0386": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `or`-chained condition ignores trust_env=False whenever no explicit request or session auth is set, so netrc credentials leak onto requests that opted out of environment trust."
+  },
+  "c0387": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period in 'HTTP and. HTTPS' (adapters.py:161) is present but is a documentation/prose defect only, with no runtime effect."
+  },
+  "c0388": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 161 does read 'HTTP and.' splitting the sentence; a real but purely cosmetic docstring issue."
+  },
+  "c0389": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The comment at sessions.py:161-162 does say 'kept to avoid. / breaking backwards compatibility'; a real but comment-only prose error."
+  },
+  "c0390": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Line 382 does say 'Do what this browsers do'; grammatically wrong but a comment-only issue with no behavioral impact."
+  },
+  "c0391": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=True the condition runs get_netrc_auth even when request.auth is explicitly set, replacing the intended credentials with netrc (or None), so the guarded fallback is genuinely broken."
+  },
+  "c0399": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except ClosedPoolError: pass` leaves `resp` unassigned, so line 748 raises UnboundLocalError instead of a Requests ConnectionError."
+  },
+  "c0400": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Lines 416 and 422-423 do contain the broken fragments ('will be the.' / 'will be. set.'), but it is docstring prose only with no runtime effect."
+  },
+  "c0401": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `pass` on ClosedPoolError falls through to `build_response(request, resp)` with `resp` never bound, producing UnboundLocalError."
+  },
+  "c0402": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Swallowing ClosedPoolError without assigning `resp` guarantees UnboundLocalError at build_response, masking the original connection failure."
+  },
+  "c0403": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`resp` is only assigned on urlopen success; the ClosedPoolError `pass` reaches build_response with `resp` unbound, raising UnboundLocalError."
+  },
+  "c0411": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except LocationValueError: pass` leaves `conn` unassigned, so `self.cert_verify(conn, ...)` at line 668 raises UnboundLocalError instead of InvalidURL/RequestException."
+  },
+  "c0412": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`(verify is True) and (verify is None)` is unsatisfiable, so REQUESTS_CA_BUNDLE/CURL_CA_BUNDLE are never consulted even with trust_env enabled."
+  },
+  "c0413": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`elif implementation != \"PyPy\"` routes PyPy to the 'Unknown' else-branch and sends Jython/IronPython into the pypy_version_info branch, raising AttributeError."
+  },
+  "c0414": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "range(1, len(parts) - 1) skips the last split segment, so its '%' is dropped entirely and 'a%20b' joins as 'a20b', corrupting every URI containing '%'."
+  },
+  "c0415": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "headers.get(\"www-authenticate\") returns None on 4xx responses lacking the header (any plain 403/404), and line 293's s_auth.lower() then raises AttributeError."
+  },
+  "c0416": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "except UnicodeError: pass swallows the IDNA failure that should raise InvalidURL, leaving the raw Unicode host to be percent-encoded by requote_uri into a bogus hostname."
+  },
+  "c0417": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 122 evaluates (__doc__ + \"\\n\") - str, and since _init() runs at module import (line 128), TypeError fires on 'import requests' itself."
+  },
+  "c0418": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "min(low, max(value, high)) with low<high always yields low (clamp(15,0,10)=0, contradicting its own docstring), instead of min(high, max(value, low))."
+  },
+  "c0419": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted comparison at line 59 routes IronPython to the 'Unknown' else-branch and unknown implementations to python_version(), the opposite of the intended mapping in info() output."
+  },
+  "c0420": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "except ValueError: pass silently accepts a non-integer max-age, and because the truthy max-age still short-circuits the elif, a valid expires attribute is ignored and the cookie is created with expire"
+  },
+  "c0421": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "elapsed = preferred_clock() + start sums two clock readings instead of subtracting, so Response.elapsed is a huge bogus duration (~2x the Unix timestamp when preferred_clock is time.time)."
+  },
+  "c0422": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When a line spans chunks, `pending` is non-None and `pending - chunk` at line 1017 raises TypeError since bytes/str don't support subtraction."
+  },
+  "c0423": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 55's inverted check replaces any supplied data with `{}` (silently dropping it) while letting the default None reach `self.update(None)`, which raises TypeError on iteration."
+  },
+  "c0424": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`string[pos : pos - slice_length]` yields a truncated first slice then empty slices (e.g. b'abcdef'/2 \u2192 [b'abcd', b'', b'']), silently losing buffered response data in iter_content."
+  },
+  "c0425": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`if __name__ != \"__main__\"` makes the module print the CA path to stdout on every `import requests` (certs is imported transitively) and skip printing when run directly."
+  },
+  "c0426": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`n % 2 == 1` returns the inverse of the documented parity predicate, so is_even(2) is False and is_even(3) is True."
+  },
+  "c0427": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`set(kwargs) + set(result)` raises TypeError (sets don't support +) on every create_cookie call, including morsel_to_cookie and all valid-argument paths."
+  },
+  "c0428": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`environ_proxies.get(scheme)` without the `.get(\"all\")` fallback returns None when only ALL_PROXY/all_proxy is set, so no proxy is added and the request goes direct."
+  },
+  "c0429": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except (ProtocolError, OSError): pass` leaves `resp` unbound, so `self.build_response(request, resp)` raises UnboundLocalError instead of ConnectionError on transport failures."
+  },
+  "c0430": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 207's inverted guard returns None whenever hash_utf8 was set (all supported algorithms incl. default MD5), so no Authorization header is ever built, and unsupported algorithms fall through to cal"
+  },
+  "c0431": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except idna.IDNAError: pass` at line 479 returns the unencoded host instead of raising, so prepare_url's UnicodeError handler never fires and invalid non-ASCII hostnames pass preparation instead "
+  },
+  "c0432": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 130 calls `self.__dict__.get(key)` without forwarding `default`, so `LookupDict().get('missing', 404)` returns None, violating the declared overload contract for `requests.codes`."
+  },
+  "c0433": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get_header at line 87 consults only `self._r.headers`, dropping the `_new_headers` and `default` fallbacks, so a header added via add_unredirected_header reports has_header True yet get_header None, b"
+  },
+  "c0434": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted `if pos is None` guard at line 286 skips rewinding a seekable body when a valid saved position exists (and would call seek(None) when pos is None), so the retried digest-auth request rese"
+  },
+  "c0435": {
+   "verdict": "UNPARSED",
+   "mechanism": ""
+  },
+  "c0436": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except ClosedPoolError: pass` at line 731-732 leaves `resp` unassigned, so `self.build_response(request, resp)` raises UnboundLocalError instead of the documented ConnectionError."
+  },
+  "c0437": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`except LocationValueError: pass` at line 665-666 leaves `conn` unbound, so `self.cert_verify(conn, ...)` at line 668 raises UnboundLocalError instead of the intended InvalidURL."
+  },
+  "c0438": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 855's `(verify is True) and (verify is None)` is unsatisfiable, so the REQUESTS_CA_BUNDLE/CURL_CA_BUNDLE lookup at 856-860 is dead code even with trust_env."
+  },
+  "c0439": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With `elif implementation != \"PyPy\"` at line 50, Jython/IronPython/other implementations enter the branch and crash on `sys.pypy_version_info`, while real PyPy skips it and falls to the else, reportin"
+  },
+  "c0440": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`range(1, len(parts) - 1)` leaves the final post-'%' segment unprocessed, so its '%' (stripped by split) is never restored \u2014 e.g. parts of 'a%20b' are ['a','20b'], the loop is empty, and join yields '"
+  },
+  "c0441": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`r.headers.get(\"www-authenticate\")` returns None when the header is absent on a 4xx response, so `s_auth.lower()` at line 293 raises AttributeError instead of returning r."
+  },
+  "c0442": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except UnicodeError: pass` at lines 531-532 swallows IDNA-encoding failures, so URLs with invalid non-ASCII labels proceed with the raw hostname instead of raising InvalidURL."
+  },
+  "c0443": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`__doc__ + \"\\n\" - \"\\n\".join(...)` at line 122 is str minus str, so `_init()` at line 128 raises TypeError at module import (module docstring is non-None), breaking `import requests`."
+  },
+  "c0444": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`min(low, max(value, high))` always evaluates to `low` whenever low <= high (max(value, high) >= high >= low), so clamp(15,0,10)=0 and clamp(5,0,10)=0; the correct form is `max(low, min(value, high))`"
+  },
+  "c0445": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "`elif implementation != \"IronPython\"` at line 59 routes every unrecognized implementation into the platform.python_version() branch while IronPython itself falls through to the else and is reported as"
+  },
+  "c0446": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 536-539: `int(morsel['max-age'])` on a non-integer raises ValueError which is caught with `pass`, leaving expires=None so an invalid max-age silently yields a session cookie."
+  },
+  "c0447": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 787 computes `preferred_clock() + start` instead of subtracting, so r.elapsed is ~2x the absolute clock value, not the request duration."
+  },
+  "c0448": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 1017 evaluates `pending - chunk` on str/bytes, which raises TypeError the first time a line spans a chunk boundary (whenever pending is not None)."
+  },
+  "c0449": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Lines 55-57 replace any provided mapping with `{}` and pass None to `self.update()` when no data is given, which raises TypeError since MutableMapping.update cannot iterate None."
+  },
+  "c0450": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 629 slices `string[pos : pos - slice_length]`, which yields empty (or wrongly-bounded, via the negative end index on the first iteration) slices instead of sequential chunks, losing content \u2014 e.g"
+  },
+  "c0451": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 17 uses `!=` so `print(where())` runs on every import of requests.certs (i.e., any `import requests`), polluting stdout, and does nothing when run as a script."
+  },
+  "c0452": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 7 returns `n % 2 == 1`, which is True for odd n, inverting the documented even check."
+  },
+  "c0453": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 516 applies `+` between two sets, which is unsupported, so every create_cookie() call (kwargs or not) raises TypeError before any validation occurs."
+  },
+  "c0454": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 935 does environ_proxies.get(scheme) with no fallback to environ_proxies.get('all'), so an ALL_PROXY-only environment yields no proxy in new_proxies."
+  },
+  "c0455": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 711 `pass` swallows ProtocolError/OSError from urlopen, leaving `resp` unassigned, so line 748 build_response(request, resp) raises UnboundLocalError instead of ConnectionError."
+  },
+  "c0456": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 207 returns None whenever hash_utf8 was set (all supported algorithms), and unsupported algorithms fall through with hash_utf8=None causing TypeError at hash_utf8(A1) on line 224."
+  },
+  "c0457": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 480 `pass` swallows idna.IDNAError and returns the original host, so prepare_url's `except UnicodeError` (line 531) never fires and invalid non-ASCII labels pass through unencoded instead of rais"
+  },
+  "c0458": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 130 calls self.__dict__.get(key) without forwarding `default`, so LookupDict.get(key, default) returns None instead of the caller-supplied default on a miss."
+  },
+  "c0459": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 87 returns only self._r.headers.get(name), dropping the fallback to self._new_headers and the `default` argument, so headers set via add_unredirected_header (e.g. Cookie) are invisible to cookiej"
+  },
+  "c0460": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 286 `is None` inverts the guard: with a saved position the body is never rewound before resend, and with pos=None it calls seek(None), a TypeError."
+  },
+  "c0461": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Line 537 `or` makes the branch fire whenever trust_env is True (or auth unset), unconditionally overwriting user-supplied request auth with get_netrc_auth(url) \u2014 often None \u2014 instead of only falling b"
+  },
+  "c0462": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The `except ClosedPoolError: pass` at lines 731-732 swallows the exception without assigning `resp`, so control falls through to line 748 where `self.build_response(request, resp)` raises UnboundLocal"
+  }
+ },
+ "codex": {
+  "c0001": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Catching LocationValueError without raising or assigning conn causes the subsequent cert_verify call to raise UnboundLocalError, outside the RequestException hierarchy."
+  },
+  "c0002": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The mutually exclusive identity checks make the environment CA bundle lookup unreachable, breaking verification for certificates requiring those bundles."
+  },
+  "c0003": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition reports Unknown on PyPy and accesses the absent sys.pypy_version_info attribute on other non-CPython runtimes."
+  },
+  "c0004": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The loop skips the last percent-separated segment, so joining drops its percent sign and changes a%20b into a20b."
+  },
+  "c0005": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A 4xx response without WWW-Authenticate yields None, whose lower() call raises AttributeError instead of returning the response."
+  },
+  "c0006": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Swallowing the IDNA UnicodeError leaves an invalid Unicode hostname intact, allowing final quoting to percent-encode it instead of raising InvalidURL."
+  },
+  "c0007": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Import-time _init() subtracts strings when the module docstring is present, raising TypeError and preventing normal package import."
+  },
+  "c0008": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For low < high, max(value, high) is always above low, so the outer min always returns low instead of clamping correctly."
+  },
+  "c0009": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted comparison reports \"Unknown\" for IronPython and assigns platform.python_version() to otherwise unrecognized implementations."
+  },
+  "c0010": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A truthy non-integer max-age raises ValueError that is swallowed, skipping expires parsing and creating a cookie with no expiration."
+  },
+  "c0011": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding the start and end clock readings produces an incorrect Response.elapsed value that is also passed to response hooks."
+  },
+  "c0012": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When an unfinished line precedes another chunk, subtracting bytes or strings raises TypeError instead of assembling the line."
+  },
+  "c0013": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition discards supplied data and passes default None to MutableMapping.update(), which raises TypeError."
+  },
+  "c0014": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The backward slice endpoint yields [b'abcd', b'', b''] for b'abcdef' with length 2 and an empty chunk with length None, losing buffered response data."
+  },
+  "c0015": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard prints the certificate path during module import, contaminating stdout, and suppresses output when executed directly."
+  },
+  "c0016": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Comparing the remainder to 1 returns False for even integers and True for odd integers, reversing the documented predicate."
+  },
+  "c0017": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding two sets raises TypeError unconditionally, so even create_cookie('name', 'value') fails."
+  },
+  "c0018": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With only an environment 'all' proxy and no supplied proxies, the scheme-only lookup returns None and resolve_proxies returns an empty mapping."
+  },
+  "c0019": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A ProtocolError or OSError from urlopen is swallowed before resp is assigned, causing UnboundLocalError at build_response."
+  },
+  "c0020": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Supported algorithms immediately return None instead of a digest header, while unsupported algorithms reach a call to hash_utf8 when it is None."
+  },
+  "c0021": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For HTTP-prefixed custom schemes that bypass urllib3 IDNA validation, swallowing IDNAError returns the invalid Unicode hostname and prevents preparation from rejecting it."
+  },
+  "c0022": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get ignores its default argument, returning None for a missing key even when the caller supplies 404."
+  },
+  "c0023": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get_header ignores both newly added headers and the supplied default, returning None despite a matching add_unredirected_header call."
+  },
+  "c0024": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "An integer position saved by tell skips the inverted rewind guard, so a consumed file body is resent from its current position with the original Content-Length."
+  },
+  "c0025": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=True, the guard overwrites explicit request authentication with netrc credentials or None, and false trust_env still permits netrc lookup when either authentication value is absent."
+  },
+  "c0026": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A ClosedPoolError interrupts assignment to resp, and the swallowed exception causes the final build_response call to raise UnboundLocalError."
+  },
+  "c0027": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "If connection acquisition raises LocationValueError, the handler leaves conn unassigned and cert_verify immediately raises UnboundLocalError."
+  },
+  "c0028": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The mutually exclusive identity checks make the environment CA-bundle lookup unreachable, ignoring configured certificate trust."
+  },
+  "c0029": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "PyPy falls through to Unknown, while other non-CPython implementations enter the branch accessing the unavailable sys.pypy_version_info."
+  },
+  "c0030": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The loop omits the final split segment, so joining drops its preceding percent sign and transforms a%20b into a20b."
+  },
+  "c0031": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A digest-authenticated request receiving a 4xx response without WWW-Authenticate evaluates None.lower() and raises AttributeError."
+  },
+  "c0032": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Although ordinary HTTP hosts undergo upstream validation, an HTTP-prefixed custom scheme such as http+custom://\u2603/ reaches this handler and retains an invalid IDNA hostname that is subsequently percent"
+  },
+  "c0033": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With the module docstring present, the import-time _init() call subtracts strings and raises TypeError."
+  },
+  "c0034": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For low <= high, the expression always returns low, incorrectly clamping both interior values and values above high."
+  },
+  "c0035": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted comparison reports Unknown for IronPython and platform.python_version() for otherwise unrecognized implementations."
+  },
+  "c0036": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A truthy non-integer max-age is silently accepted with expires=None, also bypassing any supplied expires attribute."
+  },
+  "c0037": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding the start and end clock readings assigns their sum to r.elapsed instead of the request duration."
+  },
+  "c0038": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When an unfinished line carries into another chunk, subtracting its str or bytes fragments raises TypeError before cast executes."
+  },
+  "c0039": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Provided data is replaced with an empty mapping, while omitted data reaches MutableMapping.update as None and raises TypeError."
+  },
+  "c0040": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The wrong slice endpoint loses content, although iteration terminates and the first slice can be nonempty because negative indices count from the end."
+  },
+  "c0041": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Importing requests.certs executes print(where()) because its module name differs from '__main__', producing unsolicited stdout output."
+  },
+  "c0042": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "is_even(2) returns False and is_even(3) returns True, contradicting the documented parity check."
+  },
+  "c0043": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Every create_cookie call evaluates unsupported set addition and raises TypeError before constructing a cookie."
+  },
+  "c0044": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With an empty proxies mapping and only an 'all' environment proxy, resolve_proxies returns an empty mapping because it checks only the URL scheme."
+  },
+  "c0045": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "If urlopen raises ProtocolError or OSError, execution reaches build_response with resp unassigned and raises UnboundLocalError."
+  },
+  "c0046": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Supported algorithms return None immediately, while unsupported algorithms reach hash_utf8(A1) with hash_utf8 equal to None and raise TypeError."
+  },
+  "c0047": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The helper returns invalid hostnames unchanged after IDNAError, allowing them through prepare_url for schemes such as http+custom where parse_url does not perform HTTP(S) IDNA validation."
+  },
+  "c0048": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict().get('missing', 42) returns None instead of 42 because the supplied default is never forwarded."
+  },
+  "c0049": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When a header is absent from the original request, get_header returns None even if add_unredirected_header supplied its value or the caller supplied a default."
+  },
+  "c0050": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A saved body position skips rewinding, so a digest-auth retry resends an already-consumed stream; a seek-capable body with pos=None instead receives seek(None)."
+  },
+  "c0051": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The OR guard allows netrc lookup despite explicit auth or disabled trust_env, overwriting request auth with netrc credentials or None."
+  },
+  "c0052": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When conn.urlopen raises ClosedPoolError, the handler falls through without assigning resp, causing UnboundLocalError at build_response instead of ConnectionError."
+  },
+  "c0055": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The loop skips the final split component, so joining without a separator converts '/path/%2F' into '/path/2F', changing the URL."
+  },
+  "c0056": {
+   "verdict": "REFUTED",
+   "mechanism": "The final escape does not remain encoded: splitting removes its percent sign and joining produces '7E' from '%7E'."
+  },
+  "c0057": {
+   "verdict": "REFUTED",
+   "mechanism": "The actual output is '/path/7E', and final malformed escapes also lose their percent sign rather than passing through unchanged."
+  },
+  "c0058": {
+   "verdict": "REFUTED",
+   "mechanism": "The shown code returns '7E' for unquote_unreserved('%7E') and 'GG' for requote_uri('%GG'), contradicting both claimed outputs."
+  },
+  "c0066": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A 4xx response without WWW-Authenticate yields None, and the subsequent lower() call raises AttributeError instead of returning the response."
+  },
+  "c0067": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The awkward docstring wording is present but has no effect on runtime correctness."
+  },
+  "c0068": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The missing header default allows None to reach lower() when HTTPDigestAuth processes a 4xx response without WWW-Authenticate."
+  },
+  "c0069": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A missing WWW-Authenticate header on a 4xx response causes s_auth.lower() to raise AttributeError."
+  },
+  "c0070": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A 4xx response without www-authenticate makes s_auth None, so s_auth.lower() raises AttributeError."
+  },
+  "c0078": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For schemes such as httpx that bypass parse_url's IDNA normalization, a rejected Unicode hostname survives the catch and URL preparation succeeds."
+  },
+  "c0079": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "An input such as httpx://\u2603.example reaches the suppressed UnicodeError and stores a percent-encoded invalid hostname instead of raising InvalidURL."
+  },
+  "c0080": {
+   "verdict": "REFUTED",
+   "mechanism": "The supplied claim contains only a severity label and inspection commands, with no defect mechanism or consequence to substantiate."
+  },
+  "c0088": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With docstrings enabled, module-level _init() subtracts strings and raises TypeError during import."
+  },
+  "c0089": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced periods impair documentation grammar but do not change program behavior."
+  },
+  "c0090": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The field description is ungrammatical, but the comment has no runtime effect."
+  },
+  "c0091": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The TODO contains a grammatical error without affecting authentication behavior."
+  },
+  "c0092": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With docstrings enabled, the import-time _init() call subtracts two strings at line 122, raising TypeError and aborting module import."
+  },
+  "c0093": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The docstring contains sentence-breaking periods, which impair readability without constituting a correctness defect."
+  },
+  "c0094": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Normal module initialization reaches string subtraction at line 122 and raises TypeError because __doc__ is non-None."
+  },
+  "c0095": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The identified punctuation creates grammatical fragments but is only a documentation quality issue."
+  },
+  "c0096": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown TODO contains the grammatical error 'this conditionals', which does not affect execution."
+  },
+  "c0097": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The Response.request comment uses ungrammatical wording but does not change the attribute's behavior."
+  },
+  "c0098": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Periods split continued docstring sentences as described, affecting readability rather than program correctness."
+  },
+  "c0099": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The flagged line subtracts strings during the unconditional _init() call, causing TypeError on import when docstrings are enabled."
+  },
+  "c0107": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after \u201carbitrary\u201d breaks the docstring sentence but has no effect on program correctness."
+  },
+  "c0114": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The phrase \u201ctypes are. invariant\u201d contains a prose error but does not affect typing or runtime behavior."
+  },
+  "c0121": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For ordered numeric bounds the expression always selects low, so clamp(15, 0, 10) incorrectly returns 0."
+  },
+  "c0122": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period in \u201clist of. tuples\u201d is present but only affects documentation readability."
+  },
+  "c0123": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The reversed bounds cause clamp(5, 0, 10) and clamp(15, 0, 10) to return 0 instead of 5 and 10."
+  },
+  "c0124": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Although the result remains within ordered bounds, always returning low violates clamping semantics whenever the expected result exceeds low."
+  },
+  "c0125": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The malformed phrase \u201clist of. tuples\u201d is a documentation punctuation issue with no functional consequence."
+  },
+  "c0126": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Using high inside max and low inside min forces clamp(15, 0, 10) to return 0 rather than the documented 10."
+  },
+  "c0127": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray period is present in the docstring but has no effect on encoding behavior."
+  },
+  "c0135": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inequality sends IronPython to \"Unknown\" and assigns platform.python_version() to unrecognized implementations."
+  },
+  "c0136": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted IronPython condition selects the wrong version-reporting branch for IronPython and unrecognized implementations."
+  },
+  "c0137": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "IronPython receives \"Unknown\", while unrecognized implementations receive the Python language version as their implementation version."
+  },
+  "c0138": {
+   "verdict": "REFUTED",
+   "mechanism": "The supplied claim contains only a category and truncated investigation commands, with no concrete defect or consequence to assess."
+  },
+  "c0146": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A nonempty non-integer max-age raises ValueError that is swallowed, producing a cookie with expires=None and bypassing any supplied expires value."
+  },
+  "c0147": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Invalid max-age is silently accepted and prevents the elif branch from applying a valid expires value, leaving the cookie without an expiration."
+  },
+  "c0148": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The periods create sentence fragments in the docstrings but do not affect cookie operations."
+  },
+  "c0149": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A nonempty max-age such as 'abc' raises ValueError, which is swallowed, returning a cookie with expires=None and skipping any supplied expires value."
+  },
+  "c0150": {
+   "verdict": "REFUTED",
+   "mechanism": "The claim lists analysis commands but states no defect, trigger, or consequence to verify."
+  },
+  "c0158": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding the start and end clock readings assigns their sum to Response.elapsed instead of the request duration."
+  },
+  "c0159": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The periods visibly break documentation sentences but do not affect executable behavior."
+  },
+  "c0160": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The parameter descriptions contain awkward wording without changing parameter handling or request behavior."
+  },
+  "c0161": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The directive contains a trailing period in its version argument, creating a documentation inconsistency without a demonstrated functional defect."
+  },
+  "c0162": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Response.elapsed receives the sum of the start and end clock readings rather than their difference."
+  },
+  "c0163": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The addition computes end plus start, inflating the reported duration by twice the starting clock reading."
+  },
+  "c0164": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding the start and end clock readings stores their sum in Response.elapsed instead of the request duration."
+  },
+  "c0165": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after 'of' creates a grammatical fragment in the docstring but does not affect runtime behavior."
+  },
+  "c0173": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A line split across chunks sets pending, causing the next iteration to subtract bytes or strings and raise TypeError."
+  },
+  "c0174": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown period after 'as' interrupts the documentation sentence but does not affect execution."
+  },
+  "c0175": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A line split across chunks sets pending, causing the next iteration to subtract bytes or strings and raise TypeError."
+  },
+  "c0176": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A line split across chunks sets pending, causing the next iteration to subtract bytes or strings and raise TypeError."
+  },
+  "c0177": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown period after 'function' creates a docstring sentence fragment without changing cookie preparation behavior."
+  },
+  "c0178": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A line split across chunks sets pending, causing the next iteration to subtract bytes or strings and raise TypeError."
+  },
+  "c0186": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced period is present in the header documentation but has no effect on program correctness."
+  },
+  "c0187": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The comment contains \u201cwill return the. value\u201d, which is a grammatical issue only."
+  },
+  "c0195": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The docstring contains sentence fragments, but they do not affect type checking or runtime behavior."
+  },
+  "c0196": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The punctuation and wording issues are present only in explanatory documentation."
+  },
+  "c0204": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The reversed guard discards supplied entries and passes omitted data as None to MutableMapping.update, raising TypeError."
+  },
+  "c0205": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The periods split docstring sentences but do not alter lookup or duplicate-key behavior."
+  },
+  "c0206": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The constructor replaces supplied data with an empty dictionary and makes CaseInsensitiveDict() raise TypeError by calling update(None)."
+  },
+  "c0207": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Supplied mappings and copy inputs are discarded, while construction without data raises TypeError through update(None)."
+  },
+  "c0208": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The stray periods are present in the docstring but affect only prose, not execution."
+  },
+  "c0209": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition discards supplied entries and passes None to MutableMapping.update when data is omitted, causing TypeError."
+  },
+  "c0217": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The subtractive endpoint makes iter_slices(b'abcdef', 2) yield b'abcd', b'', b'', losing the final two bytes."
+  },
+  "c0218": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The module docstring contains the grammatical error 'contains this authentication handlers', which does not affect runtime behavior."
+  },
+  "c0219": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For positive chunk sizes, the first slice omits trailing bytes and subsequent slices are empty because their endpoints precede their starts."
+  },
+  "c0220": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown docstring incorrectly splits 'items may appear multiple times' with a period, affecting documentation quality only."
+  },
+  "c0221": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A ten-byte input with slice_length=3 yields its first seven bytes followed by three empty chunks, dropping the final three bytes."
+  },
+  "c0222": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A ten-byte input with slice_length=5 yields its first five bytes and an empty chunk, dropping the remaining five bytes."
+  },
+  "c0230": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Normal imports satisfy the inverted guard and print the CA bundle path to stdout, contaminating machine-readable output."
+  },
+  "c0231": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced period makes the docstring ungrammatical but does not affect execution."
+  },
+  "c0232": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard prints during module import and suppresses the print when executed directly."
+  },
+  "c0233": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The guard produces unsolicited stdout during import and prevents diagnostic output during direct execution."
+  },
+  "c0234": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period incorrectly splits \u201cmanaged environment,\u201d which is a documentation style defect."
+  },
+  "c0235": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Using != makes module initialization print the CA path whenever certs is imported."
+  },
+  "c0243": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The predicate returns False for even integers and True for odd integers, reversing its documented contract."
+  },
+  "c0244": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The executable example contains an invalid import statement that raises SyntaxError when copied or run as a doctest."
+  },
+  "c0245": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The periods fragment documentation prose but do not affect program correctness."
+  },
+  "c0246": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "is_even(2) returns False and is_even(3) returns True, reversing its documented contract."
+  },
+  "c0247": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The doctest statement import requests. is invalid Python and raises SyntaxError when executed."
+  },
+  "c0248": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Comparing the remainder to 1 returns True for odd integers and False for even integers."
+  },
+  "c0249": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "is_even(2) returns False and is_even(3) returns True because the remainder is compared to 1."
+  },
+  "c0250": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced periods create sentence fragments but only affect documentation readability."
+  },
+  "c0251": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Executing the documented import requests. statement raises SyntaxError because of its trailing period."
+  },
+  "c0259": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Every create_cookie call evaluates unsupported set addition and raises TypeError before constructing a cookie."
+  },
+  "c0260": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The periods split docstring phrases awkwardly but do not affect runtime correctness."
+  },
+  "c0261": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding two sets raises TypeError on every create_cookie call, preventing cookie construction."
+  },
+  "c0262": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Python sets do not support addition, so even create_cookie calls with empty kwargs raise TypeError."
+  },
+  "c0263": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "Both misplaced periods are present, but their effect is limited to documentation readability."
+  },
+  "c0264": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The unsupported set addition unconditionally raises TypeError, also breaking callers that reach create_cookie through set or morsel_to_cookie."
+  },
+  "c0272": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With only an environmental all proxy and no supplied proxies, resolve_proxies returns an empty mapping because it looks up only the request scheme."
+  },
+  "c0273": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown cookies description and bool type contain stray punctuation, which is a documentation quality issue."
+  },
+  "c0274": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The scheme-only lookup omits the environmental all proxy from the resolved mapping, so select_proxy cannot apply its all fallback."
+  },
+  "c0275": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With empty input proxies and only an environment 'all' proxy, the scheme-only lookup returns None and resolve_proxies returns an empty mapping, leaving select_proxy unable to select the configured pro"
+  },
+  "c0276": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Resolving proxies for a direct send with empty input proxies ignores the environment's 'all' entry, returning no proxy despite trust_env being enabled."
+  },
+  "c0284": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period splits 'file-like object' in the docstring but does not affect request behavior."
+  },
+  "c0285": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The explanation contains awkward wording, but __reduce__ explicitly delegates to CompatJSONDecodeError as intended."
+  },
+  "c0286": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period creates a documentation sentence fragment without affecting exception inheritance or catching behavior."
+  },
+  "c0293": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "If conn.urlopen raises ProtocolError or OSError, the handler suppresses it and the final reference to unassigned resp raises UnboundLocalError."
+  },
+  "c0294": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The inserted periods interrupt docstring sentences but do not affect SSL configuration."
+  },
+  "c0295": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Suppressing ProtocolError or OSError leaves resp unassigned, so the final build_response call raises UnboundLocalError and masks the network failure."
+  },
+  "c0296": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Catching ProtocolError or OSError with pass leaves resp unassigned, so the return statement raises UnboundLocalError instead of ConnectionError."
+  },
+  "c0297": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The visible phrase \u201cthis transport adapters\u201d is grammatically incorrect but affects documentation only."
+  },
+  "c0298": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Suppressing ProtocolError or OSError leaves resp unassigned and causes UnboundLocalError when evaluating the build_response arguments."
+  },
+  "c0306": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced periods visibly fragment the docstring without affecting executable behavior."
+  },
+  "c0307": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown docstring contains the claimed punctuation and wording problems, which are documentation quality issues."
+  },
+  "c0315": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after \u201ccorrectly\u201d interrupts a docstring sentence but has no effect on cookie handling."
+  },
+  "c0316": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The visible period after \u201ccorrectly\u201d is a documentation punctuation error without runtime consequences."
+  },
+  "c0324": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard returns None for every supported digest algorithm, while unsupported algorithms proceed to call None as hash_utf8 and raise TypeError."
+  },
+  "c0325": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The comment contains a grammatical error, but comment wording does not affect runtime correctness."
+  },
+  "c0326": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Every supported algorithm assigns hash_utf8, causing the inverted guard to return None before generating a Digest authorization header."
+  },
+  "c0327": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard rejects supported algorithms and lets unsupported algorithms reach hash_utf8(A1) with hash_utf8=None, raising TypeError."
+  },
+  "c0335": {
+   "verdict": "REFUTED",
+   "mechanism": "For HTTP(S) URLs, the preceding parse_url call already rejects IDNA-invalid Unicode hosts, and its LocationParseError becomes InvalidURL before any network attempt."
+  },
+  "c0336": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The visible 'If.' introduces a documentation punctuation error without changing response behavior."
+  },
+  "c0337": {
+   "verdict": "REFUTED",
+   "mechanism": "HTTP(S) Unicode hosts undergo IDNA validation in parse_url before this helper, so invalid hosts are rejected earlier."
+  },
+  "c0338": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The visible sentence-breaking period affects documentation readability rather than executable behavior."
+  },
+  "c0339": {
+   "verdict": "REFUTED",
+   "mechanism": "For HTTP(S) URLs, parse_url rejects IDNA-invalid Unicode hosts before execution can reach the modified exception handler."
+  },
+  "c0340": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after 'If' breaks the docstring sentence but does not affect program behavior."
+  },
+  "c0348": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get ignores default, so a missing key returns None even when a non-None fallback is supplied."
+  },
+  "c0349": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown periods interrupt docstring sentences but cause no functional defect."
+  },
+  "c0350": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get omits default from the underlying dictionary lookup, causing missing keys to return None instead of the supplied fallback."
+  },
+  "c0351": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Looking up a missing key with a non-None default returns None because default is never forwarded."
+  },
+  "c0352": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The periods after 'of' and 'the' are documentation punctuation errors with no runtime effect."
+  },
+  "c0353": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get accepts a fallback but discards it, returning None for missing keys."
+  },
+  "c0361": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "After add_unredirected_header stores a header in _new_headers, get_header returns None if it is absent from the prepared headers, also ignoring any supplied default."
+  },
+  "c0362": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For a hostless URL without a Host header, ignoring the empty-string default passes None into cookiejar's hostname processing and raises TypeError during cookie selection."
+  },
+  "c0363": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period visibly splits the docstring sentence, but this is a documentation wording issue without runtime consequences."
+  },
+  "c0364": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A missing header returns None even when a non-None default is supplied, breaking the get_header contract used by cookiejar."
+  },
+  "c0372": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard skips rewinding streams with recorded integer positions, so a Digest retry reuses the consumed body."
+  },
+  "c0373": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period leaves the dictionary-ordering condition as a docstring fragment without changing multipart encoding behavior."
+  },
+  "c0374": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard skips valid saved offsets and can call seek(None) on a body exposing seek without tell."
+  },
+  "c0375": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "An integer position saved by tell() fails the is-None guard, leaving the shared stream consumed when the Digest request is retried."
+  },
+  "c0376": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The sentence fragmentation is present in the docstring but has no effect on executable behavior."
+  },
+  "c0384": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=True, line 538 overwrites explicit request credentials with netrc credentials or None before authentication is merged."
+  },
+  "c0385": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=False and either auth value absent, the OR condition still loads matching netrc credentials and passes them into request preparation."
+  },
+  "c0386": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=False and no explicit authentication, the condition still retrieves and applies matching netrc credentials."
+  },
+  "c0387": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The shown docstring contains the claimed stray period, but this prose error does not affect runtime behavior."
+  },
+  "c0388": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after 'HTTP and' is present inside a docstring and affects only readability."
+  },
+  "c0389": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The period after 'avoid' breaks the comment's sentence but has no effect on redirect handling."
+  },
+  "c0390": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The comment contains 'this browsers', a grammatical error with no runtime consequence."
+  },
+  "c0391": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With trust_env=True, netrc lookup unconditionally overwrites request auth, allowing matching netrc credentials to replace explicitly supplied credentials."
+  },
+  "c0399": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When conn.urlopen raises ClosedPoolError, the handler falls through without assigning resp, causing UnboundLocalError at the return statement."
+  },
+  "c0400": {
+   "verdict": "REAL_NOT_BUG",
+   "mechanism": "The misplaced periods create grammatical fragments in the docstring but do not affect runtime correctness."
+  },
+  "c0401": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Catching ClosedPoolError with pass leaves resp unbound and causes UnboundLocalError when preparing the build_response call."
+  },
+  "c0402": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A ClosedPoolError from conn.urlopen is swallowed, and the subsequent reference to unassigned resp masks it with UnboundLocalError."
+  },
+  "c0403": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The ClosedPoolError handler permits execution to reach the return statement with resp unbound."
+  },
+  "c0411": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A LocationValueError during connection lookup is swallowed, leaving conn unbound when it is passed to cert_verify."
+  },
+  "c0412": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The mutually exclusive identity checks make the environment CA bundle lookup unreachable, breaking verification for certificates that require those bundles."
+  },
+  "c0413": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition reports Unknown on PyPy and accesses the missing sys.pypy_version_info on other non-CPython runtimes, causing AttributeError."
+  },
+  "c0414": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The loop skips the last percent-delimited segment, so requote_uri('https://example.com/a%20b') returns 'https://example.com/a20b'."
+  },
+  "c0415": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A 4xx response without WWW-Authenticate yields None, and the response hook raises AttributeError when calling lower()."
+  },
+  "c0416": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When parsing leaves a Unicode hostname intact, swallowing its IDNA encoding failure allows requote_uri to percent-encode the invalid hostname instead of raising InvalidURL."
+  },
+  "c0417": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With the module docstring present, the import-time _init() call subtracts strings and raises TypeError."
+  },
+  "c0418": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For low < high, max(value, high) is at least high, making the outer min always return low."
+  },
+  "c0419": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition reports Unknown for IronPython and assigns the language version to otherwise unrecognized implementations, producing incorrect diagnostic metadata."
+  },
+  "c0420": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "An invalid nonempty max-age is silently accepted with expires=None, and the elif prevents an explicit past expiration from being applied."
+  },
+  "c0421": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding the start and end clock readings assigns an incorrect duration to Response.elapsed before response hooks execute."
+  },
+  "c0422": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When a line spans chunks, evaluating pending - chunk raises TypeError for both bytes and str."
+  },
+  "c0423": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted condition discards supplied data and passes default None to MutableMapping.update(), which raises TypeError."
+  },
+  "c0424": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The backward slice endpoint yields [b'abcd', b'', b''] for iter_slices(b'abcdef', 2) and an empty chunk for a nonempty body with slice_length=None."
+  },
+  "c0425": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard prints the certificate path to stdout on module import, contaminating application output, while suppressing output during direct execution."
+  },
+  "c0426": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Comparing the remainder to 1 makes is_even(2) return False and is_even(3) return True, reversing the documented predicate."
+  },
+  "c0427": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding two sets raises TypeError unconditionally, preventing every create_cookie() call from constructing a cookie."
+  },
+  "c0428": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With only an environmental all proxy and no supplied proxies, the scheme-only lookup returns None and resolve_proxies returns an empty mapping."
+  },
+  "c0429": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Swallowing ProtocolError or OSError from conn.urlopen() leaves resp unassigned, so the final build_response call raises UnboundLocalError."
+  },
+  "c0430": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard returns None for every supported algorithm, while unsupported algorithms reach calls to a None hash function."
+  },
+  "c0431": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Swallowing IDNAError returns the invalid Unicode hostname unchanged, preventing prepare_url from rejecting invalid labels that reach this helper."
+  },
+  "c0432": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get ignores its default argument, so missing keys return None even when a non-None fallback was supplied."
+  },
+  "c0433": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "get_header ignores both newly added headers and the supplied default, returning None when the original request lacks the header."
+  },
+  "c0434": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "An integer saved body position skips the inverted rewind guard, so digest retries reuse the consumed stream without restoring its initial position."
+  },
+  "c0435": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The disjunctive guard overwrites explicit request authentication whenever trust_env is true and can load netrc credentials even when trust_env is false."
+  },
+  "c0436": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Catching ClosedPoolError without raising leaves resp unassigned, causing UnboundLocalError at build_response instead of ConnectionError."
+  },
+  "c0437": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "If connection acquisition raises LocationValueError, the handler suppresses it and cert_verify immediately references the unassigned local conn."
+  },
+  "c0438": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The mutually exclusive identity checks make the environment CA-bundle lookup unreachable, ignoring configured CA bundles."
+  },
+  "c0439": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "PyPy reports \"Unknown\", while other non-CPython implementations enter the PyPy branch and raise AttributeError if sys.pypy_version_info is absent."
+  },
+  "c0440": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The final split segment is never processed or prefixed with '%', so 'a%20b' becomes 'a20b'."
+  },
+  "c0441": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A 4xx response without WWW-Authenticate sets s_auth to None, causing the digest-auth response hook to raise AttributeError at s_auth.lower()."
+  },
+  "c0442": {
+   "verdict": "REFUTED",
+   "mechanism": "For HTTP(S) URLs, parse_url already validates and IDNA-encodes the hostname, rejecting invalid labels before the changed exception handler is reached."
+  },
+  "c0443": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With docstrings enabled, the module-level _init() call attempts string subtraction and raises TypeError during import."
+  },
+  "c0444": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For ordered numeric bounds, the expression always returns low, violating the documented behavior for interior values and values above high."
+  },
+  "c0445": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "IronPython falls through to \"Unknown\", while unrecognized implementations incorrectly receive platform.python_version()."
+  },
+  "c0446": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A truthy non-integer max-age raises ValueError, which is swallowed, leaving expires=None and skipping any expires fallback."
+  },
+  "c0447": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Adding the start and end clock readings sets r.elapsed to their sum instead of the request duration."
+  },
+  "c0448": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When a partial line carries into the next chunk, subtracting str or bytes values raises TypeError before cast executes."
+  },
+  "c0449": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Provided data is replaced with an empty mapping, while omitted data reaches MutableMapping.update as None and raises TypeError."
+  },
+  "c0450": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The incorrect slice endpoint loses content, although iteration terminates and the first slice can be nonempty because negative indices count from the end."
+  },
+  "c0451": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The inverted guard prints the certificate path during ordinary module import and suppresses the intended output when run as a script."
+  },
+  "c0452": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The predicate returns True for odd integers and False for even integers, contradicting its documented behavior."
+  },
+  "c0453": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Every create_cookie call evaluates unsupported set addition and raises TypeError before constructing a cookie."
+  },
+  "c0454": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "With empty input proxies and only an environment 'all' proxy, resolve_proxies returns an empty mapping because it checks only the URL scheme."
+  },
+  "c0455": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "When urlopen raises ProtocolError or OSError, execution reaches build_response with resp unassigned, raising UnboundLocalError."
+  },
+  "c0456": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "Supported algorithms return None immediately, while unsupported algorithms reach hash_utf8(A1) with hash_utf8=None and raise TypeError."
+  },
+  "c0457": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "If IDNA encoding fails for a hostname reaching this helper, it returns the original invalid hostname instead of triggering prepare_url's InvalidURL handler."
+  },
+  "c0458": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "LookupDict.get('missing', sentinel) returns None instead of sentinel because default is never forwarded."
+  },
+  "c0459": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "For headers absent from the original request, get_header returns None even when add_unredirected_header supplied a value or the caller supplied a default."
+  },
+  "c0460": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "A consumed file body with a saved numeric position skips rewinding and is resent from its current position."
+  },
+  "c0461": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "The OR guard permits netrc lookup with trust_env=False and overwrites explicit request auth with netrc credentials or None."
+  },
+  "c0462": {
+   "verdict": "GENUINE_BUG",
+   "mechanism": "If conn.urlopen raises ClosedPoolError, the handler suppresses it without assigning resp, so the final build_response call raises UnboundLocalError instead of ConnectionError."
+  }
+ }
+}
