@@ -33,6 +33,14 @@ paid API.
 Everything is public: the 34 open PRs with every bot comment, the sealed key hash, and (on publication) the key and
 the scoring script. Read the PRs and disagree with the judges if you like; that is the point.
 
+## Interpretation caveat (added 2026-09-25, table unchanged)
+
+The Claude Code CLI arm was prompted with a list of the five seeded defect archetypes (inverted condition, off-by-one,
+wrong operator, null dereference, swallowed exception); the vendor bots got only their on-demand review command and the
+Codex arm ran its native `codex review` with no prompt at all. The Claude arm therefore had a hint the others did not.
+The Codex arm, with no hint, produced the same 23 of 24 and the same precision, which suggests the hint did not drive
+the result, but that is a post-hoc reading. Successor runs will use a hint-free prompt for every arm.
+
 ## Verify the seal yourself
 
 `key.sealed` was committed on `main` in the first commit (before any pull request). `key.json` (24 seeded bugs: file,
