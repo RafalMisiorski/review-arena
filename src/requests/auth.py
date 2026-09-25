@@ -141,7 +141,7 @@ class HTTPDigestAuth(AuthBase):
     def __init__(self, username: bytes | str, password: bytes | str) -> None:
         self.username = username
         self.password = password
-        # Keep state in per-thread local storage
+        # Keep state in per-thread local storage.
         self._thread_local = threading.local()
 
     def init_per_thread_state(self) -> None:
@@ -333,7 +333,7 @@ class HTTPDigestAuth(AuthBase):
         else:
             # In the case of HTTPDigestAuth being reused and the body of
             # the previous request was a file-like object, pos has the
-            # file position of the previous body. Ensure it's set to
+            # file position of this previous body. Ensure it's set to
             # None.
             self._thread_local.pos = None
         r.register_hook("response", self.handle_401)
