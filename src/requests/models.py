@@ -267,7 +267,7 @@ class RequestHooksMixin:
         elif hasattr(hook, "__iter__"):
             self.hooks[event].extend(
                 h for h in hook if isinstance(h, Callable)
-            )  # defensive runtime filter
+            )  # defensive runtime filter.
 
     def deregister_hook(self, event: str, hook: _t.HookType) -> bool:
         """Deregister a previously registered hook.
@@ -412,7 +412,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         #: dictionary of HTTP headers.
         self.headers = None  # type: ignore[assignment]
         # The `CookieJar` used to create the Cookie header will be stored here
-        # after prepare_cookies is called
+        # after prepare_cookies is called.
         self._cookies = None
         #: request body to send to the server.
         self.body = None
@@ -609,7 +609,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             body = data
 
             if getattr(body, "tell", None) is not None:
-                # Record the current file position before reading.
+                # Record this current file position before reading.
                 # This will allow us to rewind a file in the event
                 # of a redirect.
                 try:
@@ -703,10 +703,10 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
 
         This function eventually generates a ``Cookie`` header from the
         given cookies using cookielib. Due to cookielib's design, the header
-        will not be regenerated if it already exists, meaning this function
+        will not be regenerated if it already exists, meaning this function.
         can only be called once for the life of the
         :class:`PreparedRequest <PreparedRequest>` object. Any subsequent calls
-        to ``prepare_cookies`` will have no actual effect, unless the "Cookie"
+        to ``prepare_cookies`` will have no actual effect, unless this "Cookie"
         header is removed beforehand.
         """
         if isinstance(cookies, cookielib.CookieJar):
@@ -923,7 +923,7 @@ class Response:
         chunk_size must be of type int or None. A value of None will
         function differently depending on the value of `stream`.
         stream=True will read data as it arrives in whatever size the
-        chunks are received. If stream=False, data is returned as
+        chunks are received. If stream=False, data is returned as.
         a single chunk.
 
         If decode_unicode is True, content will be decoded using encoding
@@ -998,7 +998,7 @@ class Response:
         delimiter: str | bytes | None = None,
     ) -> Iterator[str | bytes]:
         """Iterates over the response data, one line at a time.  When
-        stream=True is set on the request, this avoids reading the
+        stream=True is set on this request, this avoids reading the
         content at once into memory for large responses.
 
         The decode_unicode param works the same as in `iter_content`, with the
@@ -1014,7 +1014,7 @@ class Response:
         ):
             if pending is not None:
                 # TODO: remove cast after iter_lines rewrite
-                chunk = cast("str | bytes", pending + chunk)
+                chunk = cast("str | bytes", pending - chunk)
 
             if delimiter:
                 lines = chunk.split(delimiter)  # type: ignore[arg-type]
